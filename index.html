@@ -1449,6 +1449,87 @@ function handleFormSubmit() {
     alert('❌ Erro ao enviar o pedido.\n\nPor favor, tente novamente ou contacte-nos por telefone.');
   });
 }
+
+// ═══════════════════════════════════════════════════════════════
+// PROTEÇÃO CONTRA SPAM
+// ═══════════════════════════════════════════════════════════════
+
+// Gerar novo CAPTCHA
+function generateCaptcha() {
+  const num1 = Math.floor(Math.random() * 10) + 1; // 1-10
+  const num2 = Math.floor(Math.random() * 10) + 1; // 1-10
+  document.getElementById('captcha_num1').textContent = num1;
+  document.getElementById('captcha_num2').textContent = num2;
+  document.getElementById('captcha_answer').value = '';
+  return num1 + num2;
+}
+
+let captcha_result = generateCaptcha();
+
+// Validar CAPTCHA
+function validateCaptcha() {
+  const userAnswer = parseInt(document.getElementById('captcha_answer').value);
+  if (isNaN(userAnswer) || userAnswer !== captcha_result) {
+    alert('❌ Resposta do CAPTCHA incorreta.\n\nPor favor, tente novamente.');
+    captcha_result = generateCaptcha();
+    return false;
+  }
+  return true;
+}
+
+// Detectar honeypot (campo invisível para bots)
+function isHoneypotFilled() {
+  const honeypot = document.getElementById('website').value.trim();
+  return honeypot.length > 0;
+}
+
+// Rate limiting (máx 3 submissões por hora)
+function checkRateLimit() {
+  const now = Date.now();
+  const lastSubmissions = JSON.parse(localStorage.getItem('form_submissions') || '[]');
+  
+  // Remover submissões com mais de 1 hora
+  const recentSubmissions = lastSubmissions.filter(time => (now - time) < 3600000);
+  
+  if (recentSubmissions.length >= 3) {
+    alert('⏳ Limite de submissões atingido.\n\nPor favor, tenta novamente em 1 hora.\n\nSe é urgente, contacta-nos por WhatsApp: +351 910 680 078');
+    return false;
+  }
+  
+  // Guardar nova submissão
+  recentSubmissions.push(now);
+  localStorage.setItem('form_submissions', JSON.stringify(recentSubmissions));
+  return true;
+}
+
+// Modificar função handleFormSubmit para incluir validações de segurança
+const originalHandleFormSubmit = handleFormSubmit;
+
+handleFormSubmit = function() {
+  // Verificar honeypot
+  if (isHoneypotFilled()) {
+    console.warn('🚨 Tentativa de bot detectada (honeypot preenchido)');
+    return; // Silenciosamente ignora
+  }
+  
+  // Validar CAPTCHA
+  if (!validateCaptcha()) {
+    return;
+  }
+  
+  // Verificar rate limit
+  if (!checkRateLimit()) {
+    return;
+  }
+  
+  // Chamar validação original
+  originalHandleFormSubmit();
+};
+
+// Gerar novo CAPTCHA quando a página carrega
+window.addEventListener('DOMContentLoaded', () => {
+  captcha_result = generateCaptcha();
+});}
 </script>
 </body>
 </html>
