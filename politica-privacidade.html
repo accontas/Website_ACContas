@@ -1,217 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Política de Privacidade - ACContas</title>
-  
-  <style>
-    /* Estilos Gerais da Página */
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.7;
-      color: #334155;
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      background-color: #f8fafc;
-    }
-    .politica-container {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    }
-    h1 {
-      color: #0f172a;
-      font-size: 2.2rem;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 15px;
-      margin-bottom: 30px;
-    }
-    h2 {
-      color: #1e3a8a;
-      font-size: 1.4rem;
-      margin-top: 35px;
-      margin-bottom: 15px;
-    }
-    p, li {
-      font-size: 1.05rem;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 8px;
-    }
-    .back-link {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .back-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Estilos Visuais do Banner */
-    .cookie-banner {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      background: #1f2937;
-      color: #ffffff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      display: none;
-      z-index: 9999;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: #1f2937;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: none; /* Escondido por defeito, o JavaScript decide se mostra */
+    z-index: 9999;
+    font-family: sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cookie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  @media (min-width: 768px) {
     .cookie-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
     }
-    @media (min-width: 768px) {
-      .cookie-container {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
-    .cookie-text {
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .cookie-text a {
-      color: #3b82f6;
-      text-decoration: underline;
-    }
-    .cookie-buttons {
-      display: flex;
-      gap: 10px;
-      white-space: nowrap;
-    }
-    .btn-cookie {
-      padding: 8px 16px;
-      border-radius: 4px;
-      border: none;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-accept { background: #10b981; color: white; }
-    .btn-accept:hover { background: #059669; }
-    .btn-reject { background: #4b5563; color: white; }
-    .btn-reject:hover { background: #374151; }
-  </style>
+  }
+  .cookie-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .cookie-text a {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+  .cookie-buttons {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .btn-cookie {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-accept { background: #10b981; color: white; }
+  .btn-accept:hover { background: #059669; }
+  .btn-reject { background: #4b5563; color: white; }
+  .btn-reject:hover { background: #374151; }
+</style>
 
-  <script>
-    const GA_MEASUREMENT_ID = 'G-JG7XMQJR13';
+<script>
+  // O teu ID do Google Analytics configurado em código técnico oculto
+  const GA_MEASUREMENT_ID = 'G-JG7XMQJR13';
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    
-    if (localStorage.getItem('cookieConsent') === null) {
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied'
-      });
-    } else if (localStorage.getItem('cookieConsent') === 'accepted') {
-      gtag('consent', 'default', {
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  
+  // Passo 1: Bloquear o rastreio por defeito antes da escolha do utilizador
+  if (localStorage.getItem('cookieConsent') === null) {
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied'
+    });
+  } else if (localStorage.getItem('cookieConsent') === 'accepted') {
+    // Se já tinha aceitado no passado, dá autorização e carrega o Analytics
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted'
+    });
+    carregarGoogleAnalytics();
+  }
+
+  // Função que injeta o script do Google Analytics de forma segura após o consentimento
+  function carregarGoogleAnalytics() {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    script.onload = function() {
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID);
+    };
+  }
+
+  // Controlar a exibição do banner na página
+  window.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookieBanner');
+    const consent = localStorage.getItem('cookieConsent');
+
+    // Se é a primeira visita, mostra o banner
+    if (!consent) {
+      banner.style.display = 'block';
+    }
+
+    // Se clicar em Aceitar
+    document.getElementById('btnAcceptCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      gtag('consent', 'update', {
         'analytics_storage': 'granted'
       });
       carregarGoogleAnalytics();
-    }
-
-    function carregarGoogleAnalytics() {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-      document.head.appendChild(script);
-
-      script.onload = function() {
-        gtag('js', new Date());
-        gtag('config', GA_MEASUREMENT_ID);
-      };
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const banner = document.getElementById('cookieBanner');
-      const consent = localStorage.getItem('cookieConsent');
-
-      if (!consent) {
-        banner.style.display = 'block';
-      }
-
-      document.getElementById('btnAcceptCookies').addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'accepted');
-        gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        });
-        carregarGoogleAnalytics();
-        banner.style.display = 'none';
-      });
-
-      document.getElementById('btnRejectCookies').addEventListener('click', () => {
-        localStorage.setItem('cookieConsent', 'rejected');
-        banner.style.display = 'none';
-      });
+      banner.style.display = 'none';
     });
-  </script>
+
+    // Se clicar em Recusar
+    document.getElementById('btnRejectCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'rejected');
+      banner.style.display = 'none';
+    });
+  });
+</script>
 </head>
 <body>
 
-  <a href="/index.html" class="back-link">← Voltar ao Site</a>
-
   <div class="politica-container">
     <h1>Política de Privacidade</h1>
-    <p>A sua privacidade e a proteção dos seus dados pessoais são uma prioridade rigorosa para a <strong>ACContas</strong>. Esta Política de Privacidade descreve de forma clara e transparente como recolhemos, tratamos, protegemos e armazenamos os dados que nos faculta ao navegar no nosso website.</p>
+    <p>A sua privacidade e a proteção dos seus dados pessoais são uma prioridade para a ACContas. Esta Política de Privacidade descreve como recolhemos, tratamos e protegemos os dados que nos fornece ao navegar no nosso website.</p>
 
     <h2>1. Responsável pelo Tratamento de Dados</h2>
-    <p>O responsável pelo tratamento dos dados pessoais recolhidos através deste website é a <strong>ACContas</strong>, com sede em Aveiro, Portugal. Caso tenha qualquer questão ou pretenda exercer os seus direitos legais, poderá contactar-nos através do formulário de contacto do website.</p>
+    <p>O responsável pelo tratamento dos dados pessoais recolhidos através deste website é a ACContas, com sede em Aveiro, Portugal. Caso tenha qualquer questão, poderá contactar-nos através do formulário de contacto.</p>
 
     <h2>2. Que Dados Recolhemos e Como os Utilizamos</h2>
-    <p>Operamos sob o princípio da minimização de dados, recolhendo apenas as informações estritamente necessárias para as seguintes finalidades:</p>
+    <p>Recolhemos apenas as informações necessárias para as seguintes finalidades:</p>
     <ul>
-      <li><strong>Formulários de Pedido de Orçamento e Contacto:</strong> Recolhemos as informações fornecidas ativamente por si (tais como Nome, E-mail e os detalhes da sua Mensagem). Estes dados destinam-se unicamente a dar resposta ao seu pedido de esclarecimento, análise de necessidades de Contabilidade Organizada ou Consultoria Fiscal, e envio de propostas comerciais.</li>
-      <li><strong>Dados Estatísticos e de Navegação (Google Analytics):</strong> Desde que preste o seu consentimento explícito através do nosso banner de cookies, utilizamos o serviço <strong>Google Analytics (ID: G-JG7XMQJR13)</strong>. Este serviço recolhe dados anónimos sobre a sua interação com o site (por exemplo, páginas que visitou, tempo de permanência, tipo de dispositivo e localização geográfica aproximada). Estes dados são utilizados puramente para fins estatísticos e para melhorar a usabilidade da nossa plataforma.</li>
+      <li><strong>Formulários de Pedido de Orçamento e Contacto:</strong> Informações fornecidas por si (Nome, E-mail e Mensagem) destinadas unicamente a responder ao seu pedido e envio de propostas de serviços de contabilidade ou consultoria.</li>
+      <li><strong>Dados Estatísticos e de Navegação:</strong> Caso preste o seu consentimento através do banner de cookies, utilizamos ferramentas de análise estatística (Google Analytics) para recolher dados anónimos sobre as visitas (páginas consultadas, tempo de permanência e localização aproximada) de forma a melhorar o nosso website.</li>
     </ul>
 
-    <h2>3. Utilização de Cookies e Tecnologias de Rastreio</h2>
-    <p>Este website utiliza cookies para o funcionamento técnico do sistema de consentimento e para a análise de tráfego via Google Analytics. O utilizador tem controlo total sobre estas tecnologias:</p>
+    <h2>3. Utilização de Cookies e Rastreio</h2>
+    <p>Este website utiliza cookies para o funcionamento do sistema e recolha de métricas analíticas. O utilizador tem o controlo total:</p>
     <ul>
-      <li>Os cookies analíticos do Google Analytics permanecem totalmente **bloqueados por defeito** até que clique em "Aceitar".</li>
-      <li>Pode recusar o rastreio a qualquer momento clicando em "Recusar", o que garantirá que nenhuma informação sobre a sua sessão é enviada à Google.</li>
+      <li>Os cookies analíticos permanecem bloqueados por defeito até que dê o seu consentimento.</li>
+      <li>Pode recusar o rastreio a qualquer momento selecionando a opção "Recusar" no banner explicativo.</li>
     </ul>
 
-    <h2>4. Processamento e Automatismos (n8n, CRM e E-mail)</h2>
-    <p>Para assegurar uma gestão célere, profissional e integrada das suas solicitações, os dados que insere nos nossos formulários de contacto são submetidos e processados de forma automatizada recorrendo à plataforma <strong>n8n</strong>. Este fluxo encaminha a informação de forma encriptada e segura para o nosso e-mail profissional e/ou sistema de gestão de clientes (CRM). Garante-se que nenhum dado é transmitido a terceiros para fins de marketing ou publicidade.</p>
+    <h2>4. Processamento e Automatismos (n8n)</h2>
+    <p>Os dados inseridos nos formulários são processados de forma integrada e automatizada através da plataforma n8n, sendo reencaminhados de forma segura e confidencial para o nosso e-mail profissional e sistema interno (CRM). Não partilhamos dados com terceiros para fins publicitários.</p>
 
-    <h2>5. Base Legal para o Tratamento</h2>
-    <p>O tratamento dos seus dados pessoais assenta estritamente nas seguintes bases legais do RGPD:</p>
-    <ul>
-      <li>O seu <strong>consentimento expresso</strong> para o envio de mensagens pelo formulário e para a ativação de cookies analíticos.</li>
-      <li>A execução de <strong>diligências pré-contratuais</strong> a seu pedido (como a elaboração de propostas de serviços de contabilidade).</li>
-    </ul>
+    <h2>5. Direitos do Utilizador</h2>
+    <p>Ao abrigo do RGPD, assiste-lhe o direito de aceder, retificar, limitar ou solicitar a eliminação definitiva dos seus dados pessoais armazenados nos nossos sistemas. Para tal, basta contactar-nos.</p>
 
-    <h2>6. Direitos do Utilizador</h2>
-    <p>Ao abrigo do Regulamento Geral sobre a Proteção de Dados (RGPD), é-lhe garantido, a qualquer momento e sem qualquer custo, o direito de:</p>
-    <ul>
-      <li>Aceder e retificar os seus dados pessoais;</li>
-      <li>Solicitar a eliminação definitiva dos seus registos ("direito ao esquecimento");</li>
-      <li>Limitar ou opor-se ao tratamento dos seus dados;</li>
-      <li>Retirar o consentimento anteriormente fornecido.</li>
-    </ul>
-
-    <h2>7. Conservação dos Dados</h2>
-    <p>Os dados de contacto recolhidos serão conservados no nosso sistema apenas durante o período necessário para gerir o seu pedido de orçamento ou enquanto durar a eventual prestação de serviços e obrigações contabilísticas/legais decorrentes.</p>
-
-    <p style="margin-top: 40px; font-size: 0.9rem; color: #64748b; font-style: italic;">Última atualização: Maio de 2026.</p>
+    <p style="margin-top: 30px; font-size: 0.9rem; color: #64748b; font-style: italic;">Última atualização: Maio de 2026.</p>
   </div>
 
   <div id="cookieBanner" class="cookie-banner">
