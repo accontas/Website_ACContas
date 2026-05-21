@@ -1,0 +1,17 @@
+# Cache de longa duração para assets
+/css/* 
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=2592000
+
+# Cache curto para HTML
+/*.html
+  Cache-Control: public, max-age=3600
+
+# Default para outras páginas
+/*
+  Cache-Control: public, max-age=3600
