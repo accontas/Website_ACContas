@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Política de Privacidade – ACContas</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- FAVICON -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='95' fill='%231a4d56'/%3E%3Cpath d='M 80 50 A 40 40 0 1 0 80 150' fill='none' stroke='%23e8e6e0' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M 120 50 A 40 40 0 1 0 120 150' fill='none' stroke='%232a7880' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+
+<style>
+:root {
+  --navy: #1B3A4B;
+  --navy2: #24495A;
+  --navy3: #2D5869;
+  --teal: #0EA5A0;
+  --teal-light: #14C4BE;
+  --teal-dark: #0A8A85;
+  --gold: #C9A84C;
+  --gold-light: #E2C06B;
+  --white: #FFFFFF;
+  --off-white: #F5FBFA;
+  --gray: #8899AA;
+  --light-border: #D4E8E6;
+  --text: #1B3A4B;
+  --text-muted: #4A6B7B;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5%; height: 72px;
+  background: rgba(13,27,42,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(14,165,160,0.15);
+}
+.nav-logo { 
+  display: flex; align-items: center; gap: 14px; text-decoration: none;
+  transition: transform 0.2s;
+}
+.nav-logo:hover { transform: scale(1.03); }
+.nav-logo-svg { 
+  width: 42px; height: 42px; 
+  background: linear-gradient(135deg, rgba(14,165,160,0.15), rgba(14,165,160,0.08));
+  border-radius: 10px;
+  padding: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-svg svg { width: 100%; height: 100%; }
+.nav-logo-text { 
+  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 20px; 
+  color: white; letter-spacing: 0px;
+}
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; font-weight: 500; letter-spacing: 0.3px; transition: color 0.2s; }
+.nav-links a:hover { color: var(--teal-light); }
+.nav-cta {
+  background: var(--teal); color: white; border: none; cursor: pointer;
+  padding: 10px 22px; border-radius: 6px; font-size: 14px; font-weight: 600;
+  font-family: 'Montserrat', sans-serif; transition: background 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.nav-cta:hover { background: var(--teal-light); }
+
+/* ─── HERO PEQUENA ─── */
+.hero-legal {
+  min-height: 35vh;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 120px 5% 80px;
+  position: relative; overflow: hidden;
+  margin-top: 72px;
+}
+.hero-bg-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(14,165,160,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14,165,160,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; top: -200px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(14,165,160,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 680px; }
+.hero-legal h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700; line-height: 1.1;
+  color: white; letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+.hero-legal p {
+  font-size: 16px; color: rgba(255,255,255,0.7);
+  line-height: 1.7; font-weight: 300;
+}
+
+/* ─── LEGAL CONTENT ─── */
+.legal-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 80px 5%;
+  background: var(--white);
+}
+
+.legal-content {
+  background: var(--off-white);
+  border-radius: 16px;
+  padding: 48px;
+  border: 1px solid var(--light-border);
+}
+
+.legal-content h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--teal);
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy2);
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.legal-content p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.legal-content ul {
+  margin: 16px 0 16px 24px;
+  padding: 0;
+}
+
+.legal-content li {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.legal-content strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.legal-content a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.legal-content a:hover {
+  color: var(--teal-dark);
+  text-decoration: underline;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 5% 30px;
+  margin-top: 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.footer-col-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 16px;
+}
+
+.footer-brand-text {
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+  margin-top: 12px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--teal-light);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy, .footer-occ {
+  flex: 1;
+}
+
+.footer-links-legais {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.footer-links-legais a {
+  color: rgba(255,255,255,0.6);
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s;
+}
+
+.footer-links-legais a:hover {
+  color: var(--teal-light);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .legal-content {
+    padding: 32px;
+  }
+  
+  .legal-section {
+    padding: 60px 5%;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-copy, .footer-occ {
+    flex: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .legal-content {
+    padding: 20px;
+  }
+  
+  .legal-content h2 {
+    font-size: 20px;
+  }
+  
+  .legal-content h3 {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/index.html" class="nav-logo">
+    <div class="nav-logo-svg">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <path d="M 80 50 A 40 40 0 1 0 80 150" fill="none" stroke="#0EA5A0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 76 57 A 36 36 0 1 0 76 143" fill="none" stroke="#14C4BE" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+        </g>
+        <g>
+          <path d="M 120 50 A 40 40 0 1 0 120 150" fill="none" stroke="#14C4BE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 116 57 A 36 36 0 1 0 116 143" fill="none" stroke="#0EA5A0" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <span class="nav-logo-text">ACContas</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero-legal">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <h1>Política de Privacidade</h1>
+    <p>Conheça como tratamos e protegemos os seus dados pessoais</p>
+  </div>
+</section>
+
+<!-- CONTEÚDO LEGAL -->
+<section class="legal-section">
+  <div class="legal-content">
+    
+    <h2>Política de Privacidade e Proteção de Dados</h2>
+    <p>A privacidade e a segurança dos seus dados pessoais são uma prioridade para a ACContas. Esta Política de Privacidade explica como recolhemos, utilizamos, tratamos e protegemos os dados pessoais fornecidos através do nosso formulário de contacto.</p>
+
+    <h2>1. Responsável pelo Tratamento dos Dados</h2>
+    <p>O responsável pelo tratamento dos seus dados pessoais é <strong>André Chouco</strong>, com sede em Aveiro e e-mail de contacto: <a href="mailto:andreccontas@gmail.com">andreccontas@gmail.com</a>.</p>
+
+    <h2>2. Dados Recolhidos e Finalidade</h2>
+    <p>Através do formulário "Pedir Orçamento Gratuito", recolhemos os seguintes dados: Nome, Endereço de E-mail, Número de Telemóvel e a Mensagem descritiva do serviço pretendido.</p>
+    
+    <h3>Finalidade:</h3>
+    <p>Estes dados são recolhidos exclusivamente para responder ao seu pedido de contacto, analisar a especificidade do seu caso e apresentar um orçamento personalizado para os serviços de contabilidade ou consultoria fiscal solicitados.</p>
+    
+    <h3>Base Legal:</h3>
+    <p>O tratamento destes dados baseia-se no consentimento livre, específico e informado do utilizador (ao submeter o formulário) e nas diligências pré-contratuais a seu pedido.</p>
+
+    <h2>3. Conservação dos Dados</h2>
+    <p>Os dados pessoais fornecidos serão conservados pelo período estritamente necessário para responder ao pedido de orçamento e efetuar o respetivo acompanhamento comercial. Caso não se formalize a prestação de serviços, os dados serão eliminados no prazo máximo de 12 meses, exceto se houver obrigação legal em contrário.</p>
+
+    <h2>4. Partilha de Dados</h2>
+    <p>A ACContas não vende, aluga ou partilha os seus dados pessoais com terceiros para fins de marketing. Os dados inseridos no formulário são processados de forma segura e confidencial.</p>
+
+    <h2>5. Direitos do Utilizador</h2>
+    <p>Nos termos do RGPD, o utilizador tem o direito de aceder, retificar, limitar o tratamento, solicitar a portabilidade ou exigir a eliminação dos seus dados pessoais a qualquer momento. Para exercer estes direitos, basta enviar um pedido por e-mail para: <a href="mailto:andreccontas@gmail.com">andreccontas@gmail.com</a>.</p>
+    <p>Se considerar que os seus direitos foram violados, poderá apresentar uma reclamação junto da <strong>Comissão Nacional de Proteção de Dados (CNPD)</strong>.</p>
+
+    <h2>Política de Cookies</h2>
+    <p>Este sítio web utiliza apenas cookies estritamente necessários para o correto funcionamento da página, navegação e segurança (cookies técnicos). Não utilizamos, de forma nativa, cookies de rastreio comportamental ou de publicidade direcionada de terceiros sem o seu consentimento prévio.</p>
+
+    <h2>Resolução Alternativa de Litígios de Consumo (RAL)</h2>
+    <p>Em caso de litígio decorrente da prestação de serviços de consumo, o consumidor (pessoa singular que atue com fins que não se incluam no âmbito da sua atividade comercial, industrial, artesanal ou profissional) pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo.</p>
+    
+    <p>Em conformidade com o artigo 18.º da Lei n.º 144/2015, informa-se que as entidades RAL disponíveis para o setor e área geográfica são:</p>
+    
+    <ul>
+      <li>
+        <strong>CNIACC - Centro Nacional de Informação e Arbitragem de Conflitos de Consumo</strong>
+        <br/>Website: <a href="https://www.cniacc.pt" target="_blank">www.cniacc.pt</a>
+      </li>
+      <li>
+        <strong>CACRC - Centro de Arbitragem de Conflitos de Consumo da Região Centro</strong>
+        <br/>Website: <a href="https://www.centrodearbitragemdocentro.pt" target="_blank">www.centrodearbitragemdocentro.pt</a>
+      </li>
+    </ul>
+    
+    <p>Em caso de litígio de consumo online, o consumidor pode ainda recorrer à Plataforma Europeia de Resolução de Litígios em Linha (RLL), disponível através do endereço eletrónico oficial da Comissão Europeia. Mais informações em <a href="https://www.consumidor.gov.pt" target="_blank">Portal do Consumidor: www.consumidor.gov.pt</a>.</p>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="/index.html" class="nav-logo" style="margin-bottom:0">
+        <div class="nav-logo-svg">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path d="M 80 50 A 40 40 0 1 0 80 150" fill="none" stroke="#0EA5A0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 76 57 A 36 36 0 1 0 76 143" fill="none" stroke="#14C4BE" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+            </g>
+            <g>
+              <path d="M 120 50 A 40 40 0 1 0 120 150" fill="none" stroke="#14C4BE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 116 57 A 36 36 0 1 0 116 143" fill="none" stroke="#0EA5A0" stroke-width="4" opacity="0.6" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <span class="nav-logo-text">ACContas</span>
+      </a>
+      <p class="footer-brand-text">Contabilidade e fiscalidade com foco na otimização. Contabilista Certificado, Mestre em Fiscalidade, localizado em Aveiro.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Serviços</div>
+      <ul class="footer-links">
+        <li><a href="/index.html#servicos">IRS</a></li>
+        <li><a href="/index.html#servicos">Trabalhador Independente</a></li>
+        <li><a href="/index.html#servicos">Contabilidade Organizada</a></li>
+        <li><a href="/index.html#servicos">Consultoria Fiscal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informação</div>
+      <ul class="footer-links">
+        <li><a href="/index.html#sobre">Sobre</a></li>
+        <li><a href="/index.html#avaliacoes">Avaliações</a></li>
+        <li><a href="/index.html#faq">FAQ</a></li>
+        <li><a href="https://www.zaask.pt/user/ACContas" target="_blank">Zaask</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <ul class="footer-links">
+        <li><a href="/index.html#contacto">Pedir Orçamento</a></li>
+        <li><a href="/index.html#contacto">Enviar mensagem</a></li>
+        <li><a href="#">Aveiro · Portugal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 ACContas. Todos os direitos reservados.</div>
+    <div class="footer-occ">📜 Inscrito na Ordem dos Contabilistas Certificados</div>
+  </div>
+  <div class="footer-links-legais">
+    <a href="/politica-privacidade.html">Política de Privacidade</a> | 
+    <a href="/aviso-legal.html">Aviso Legal</a>
+  </div>
+  <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 12px; color: rgba(255,255,255,0.4); text-align: center;">
+    * Chamada para rede móvel nacional. Consulte as tarifas do seu operador móvel.
+  </div>
+</footer>
+
+</body>
+</html>
