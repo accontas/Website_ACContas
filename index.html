@@ -1171,8 +1171,22 @@ footer {
           Aceito que os meus dados sejam tratados pela ACContas para efeitos de resposta a este pedido de orçamento, de acordo com a <a href="/politica-privacidade.html" style="color: var(--teal); text-decoration: none; font-weight: 500;">Política de Privacidade</a>.
         </label>
       </div>
-      <button id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;text-align:center;" type="button" onclick="handleFormSubmit()">Enviar Pedido →</button>
-      <p style="font-size:12px;color:var(--text-muted);margin-top:12px;text-align:center;">Sem compromisso. Resposta em menos de 24 horas úteis.</p>
+      
+      <!-- HONEYPOT (campo invisível para bots) -->
+      <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+      
+      <!-- CAPTCHA -->
+      <div class="captcha-container" style="background: #f5fbfa; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #D4E8E6;">
+        <div style="font-size: 13px; color: var(--text); font-weight: 500; margin-bottom: 10px;">Verificação de Segurança</div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <div style="font-size: 14px; color: var(--text);">
+            <span id="captcha_num1">0</span> + <span id="captcha_num2">0</span> = 
+          </div>
+          <input type="number" id="captcha_answer" class="form-input" placeholder="Resposta" style="width: 80px; padding: 8px;">
+        </div>
+      </div>
+      
+      <button id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;text-align:center;margin-top:15px;" type="button" onclick="handleFormSubmit()">Enviar Pedido →</button>
     </div>
   </div>
 </section>
