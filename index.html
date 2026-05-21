@@ -1400,7 +1400,17 @@ function handleFormSubmit() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData)
   })
-  .then(response => response.json())
+  .then(response => {
+  console.log('📡 Status HTTP:', response.status);
+  return response.text().then(text => {
+    console.log('📨 Resposta bruta:', text);
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      return { raw: text };  // ✅ Se não for JSON, guarda texto
+    }
+  });
+})
   .then(data => {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Enviar Pedido →';
