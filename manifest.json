@@ -1,0 +1,22 @@
+{
+  "name": "ACContas - Contabilidade & Fiscalidade",
+  "short_name": "ACContas",
+  "description": "Serviços de contabilidade, IRS e consultoria fiscal em Aveiro",
+  "start_url": "https://accontas.pt/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1B3A4B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

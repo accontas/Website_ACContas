@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://accontas.pt/sitemap.xml
+
+# Delay para bots (em segundos)
+Crawl-delay: 1
