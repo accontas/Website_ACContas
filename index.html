@@ -206,8 +206,54 @@ nav {
   text-decoration: none; display: inline-block;
 }
 .nav-cta:hover { background: var(--teal-light); }
-.nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
-.nav-mobile-btn span { display: block; width: 24px; height: 2px; background: white; margin: 5px 0; border-radius: 2px; transition: 0.3s; }
+
+/* ── Hamburger button ── */
+.nav-mobile-btn {
+  display: none; background: none; border: none; cursor: pointer;
+  padding: 8px; margin-right: -8px; z-index: 101;
+}
+.nav-mobile-btn span {
+  display: block; width: 24px; height: 2px; background: white;
+  margin: 5px 0; border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+/* Animação X quando aberto */
+.nav-mobile-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-mobile-btn.open span:nth-child(2) { opacity: 0; }
+.nav-mobile-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Menu mobile deslizante ── */
+.nav-mobile-menu {
+  display: none;
+  position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(13,27,42,0.98);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(14,165,160,0.2);
+  padding: 24px 5% 32px;
+  z-index: 99;
+  flex-direction: column; gap: 0;
+  transform: translateY(-10px); opacity: 0;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-mobile-menu.open {
+  display: flex;
+  transform: translateY(0); opacity: 1;
+}
+.nav-mobile-menu a {
+  color: rgba(255,255,255,0.8); text-decoration: none;
+  font-size: 16px; font-weight: 500;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.2s;
+}
+.nav-mobile-menu a:hover { color: var(--teal-light); }
+.nav-mobile-menu .nav-mobile-cta {
+  margin-top: 20px;
+  background: var(--teal); color: white;
+  text-align: center; border-radius: 8px;
+  padding: 14px; font-weight: 600; font-size: 15px;
+  border-bottom: none;
+}
 
 /* ─── HERO ─── */
 .hero {
@@ -596,8 +642,27 @@ nav {
 .form-input:focus, .form-select:focus, .form-textarea:focus {
   outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px rgba(14,165,160,0.1);
 }
+.form-input.erro, .form-select.erro, .form-textarea.erro {
+  border-color: #e53e3e; box-shadow: 0 0 0 3px rgba(229,62,62,0.1);
+}
+.form-field-erro {
+  display: none; font-size: 12px; color: #e53e3e;
+  margin-top: 5px; font-weight: 500;
+}
+.form-field-erro.visivel { display: block; }
 .form-textarea {
   resize: vertical; min-height: 120px;
+}
+/* Feedback global do formulário */
+.form-feedback-global {
+  display: none; padding: 14px 16px; border-radius: 8px;
+  font-size: 13px; font-weight: 500; line-height: 1.5; margin-top: 16px;
+}
+.form-feedback-global.sucesso {
+  display: block; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
+}
+.form-feedback-global.erro {
+  display: block; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;
 }
 
 /* ─── CTA ─── */
@@ -730,32 +795,77 @@ footer {
 }
 
 /* ─── RESPONSIVE ─── */
+
+/* Tablet (≤ 900px) */
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .hero-right { width: 280px; }
+}
+
+/* Mobile (≤ 768px) */
 @media (max-width: 768px) {
-  .services-grid, .reviews-grid { grid-template-columns: 1fr; }
-  .about-grid-new, .about-grid, .contact-grid, .faq-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-right { position: static; width: 100%; margin-top: 40px; transform: none; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .cta-contacts { flex-direction: column; gap: 20px; }
-  .badges-grid { grid-template-columns: 1fr; }
+  /* Nav */
   nav { padding: 0 4%; height: 64px; }
-  .nav-links { gap: 20px; font-size: 13px; }
-  .nav-cta { padding: 8px 16px; font-size: 13px; }
-  
-  .about-profile-card {
-    padding: 32px;
-  }
-  
-  .profile-header {
-    text-align: center;
-  }
-  
-  .profile-avatar {
-    width: 80px; height: 80px; font-size: 36px;
-  }
-  
-  .profile-name {
-    font-size: 22px;
-  }
+  .nav-links, .nav-cta { display: none; }
+  .nav-mobile-btn { display: block; }
+
+  /* Hero */
+  .hero { padding: 100px 4% 60px; min-height: auto; }
+  .hero h1 { font-size: clamp(32px, 8vw, 48px); }
+  .hero-sub { font-size: 16px; }
+  .hero-actions { flex-direction: column; gap: 12px; }
+  .hero-actions a { text-align: center; }
+  .hero-stats { gap: 24px; margin-top: 40px; padding-top: 28px; }
+  .hero-stat-num { font-size: 28px; }
+  .hero-right { position: static; width: 100%; margin-top: 32px; transform: none; }
+
+  /* Secções */
+  .section { padding: 64px 4%; }
+  .section-title { font-size: clamp(26px, 6vw, 36px); }
+
+  /* Serviços */
+  .services-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 28px 24px; }
+
+  /* Sobre */
+  .about-grid-new, .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-profile-card { padding: 28px; }
+  .profile-header { text-align: center; }
+  .profile-avatar { width: 80px; height: 80px; }
+  .profile-name { font-size: 22px; }
+
+  /* Reviews */
+  .reviews-grid { grid-template-columns: 1fr; }
+
+  /* FAQ */
+  .faq-grid { grid-template-columns: 1fr; gap: 0; }
+  .faq-toggle { font-size: 14px; padding: 16px; }
+
+  /* Contacto */
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-form { padding: 28px 20px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  /* CTA */
+  .cta-section { padding: 60px 4%; }
+  .cta-contacts { flex-direction: column; gap: 16px; }
+  .cta-actions { flex-direction: column; align-items: center; }
+  .cta-actions a { width: 100%; text-align: center; }
+
+  /* Badges */
+  .badges-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
+}
+
+/* Pequeno mobile (≤ 400px) */
+@media (max-width: 400px) {
+  .hero h1 { font-size: 28px; }
+  .hero-stats { flex-direction: column; gap: 16px; }
+  .section { padding: 48px 4%; }
+  .contact-form { padding: 20px 16px; }
 }
 
 .fade-in { opacity: 0; transform: translateY(20px); }
@@ -793,7 +903,20 @@ footer {
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Contacto →</a>
+  <!-- Botão hamburger (só visível em mobile) -->
+  <button class="nav-mobile-btn" id="navMobileBtn" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Menu mobile deslizante -->
+<div class="nav-mobile-menu" id="navMobileMenu" role="navigation" aria-label="Menu mobile">
+  <a href="#servicos" class="nav-mobile-link">Serviços</a>
+  <a href="#sobre" class="nav-mobile-link">Sobre</a>
+  <a href="#avaliacoes" class="nav-mobile-link">Avaliações</a>
+  <a href="#faq" class="nav-mobile-link">FAQ</a>
+  <a href="#contacto" class="nav-mobile-cta">Pedir Orçamento Gratuito →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1139,20 +1262,23 @@ footer {
       <div class="form-title">Pedir Orçamento Gratuito</div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Nome</label>
+          <label class="form-label" for="nome">Nome</label>
           <input type="text" id="nome" class="form-input" placeholder="O seu nome"/>
+          <span class="form-field-erro" id="erro-nome"></span>
         </div>
         <div class="form-group">
-          <label class="form-label">Email</label>
+          <label class="form-label" for="email">Email</label>
           <input type="email" id="email" class="form-input" placeholder="email@exemplo.pt"/>
+          <span class="form-field-erro" id="erro-email"></span>
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">Telemóvel</label>
+        <label class="form-label" for="telefone">Telemóvel</label>
         <input type="tel" id="telefone" class="form-input" placeholder="9 dígitos (ex: 912345678)"/>
+        <span class="form-field-erro" id="erro-telefone"></span>
       </div>
       <div class="form-group">
-        <label class="form-label">Serviço pretendido</label>
+        <label class="form-label" for="servico">Serviço pretendido</label>
         <select id="servico" class="form-select" aria-label="Escolhe o serviço pretendido">
           <option value="">Selecione um serviço</option>
           <option>IRS – Declaração Anual</option>
@@ -1162,10 +1288,12 @@ footer {
           <option>Constituição de Empresa</option>
           <option>Outro</option>
         </select>
+        <span class="form-field-erro" id="erro-servico"></span>
       </div>
       <div class="form-group">
-        <label class="form-label">Mensagem</label>
+        <label class="form-label" for="mensagem">Mensagem</label>
         <textarea id="mensagem" class="form-textarea" placeholder="Descreva brevemente a sua situação..."></textarea>
+        <span class="form-field-erro" id="erro-mensagem"></span>
       </div>
       <div class="form-group" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 15px;">
         <input type="checkbox" id="rgpd_consent" required style="margin-top: 3px;" />
@@ -1173,6 +1301,7 @@ footer {
           Aceito que os meus dados sejam tratados pela ACContas para efeitos de resposta a este pedido de orçamento, de acordo com a <a href="/politica-privacidade.html" style="color: var(--teal); text-decoration: none; font-weight: 500;">Política de Privacidade</a>.
         </label>
       </div>
+      <span class="form-field-erro" id="erro-rgpd" style="display:none; margin-top: 4px;"></span>
       
       <!-- HONEYPOT (campo invisível para bots) -->
       <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
@@ -1186,7 +1315,11 @@ footer {
           </div>
           <input type="number" id="captcha_answer" class="form-input" placeholder="Resposta" style="width: 80px; padding: 8px;">
         </div>
+        <span class="form-field-erro" id="erro-captcha"></span>
       </div>
+
+      <!-- Feedback global -->
+      <div class="form-feedback-global" id="form-feedback-global"></div>
       
       <button id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;text-align:center;margin-top:15px;" type="button" onclick="handleFormSubmit()">Enviar Pedido →</button>
     </div>
@@ -1331,159 +1464,176 @@ document.querySelectorAll('.faq-item .faq-toggle').forEach(button => {
   });
 });
 
+
 // ═══════════════════════════════════════════════════════════════
-// FORMULÁRIO DE CONTACTO — ACContas
-// Chama a Netlify Function /contact em vez do Make.com diretamente.
-// A API key e webhook URL estão seguras no servidor.
+// MENU MOBILE
 // ═══════════════════════════════════════════════════════════════
- 
-// ── Helpers de validação ────────────────────────────────────────
+const navBtn  = document.getElementById('navMobileBtn');
+const navMenu = document.getElementById('navMobileMenu');
+
+navBtn.addEventListener('click', () => {
+  const isOpen = navMenu.classList.toggle('open');
+  navBtn.classList.toggle('open', isOpen);
+  navBtn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+// Fechar menu ao clicar num link
+document.querySelectorAll('.nav-mobile-link, .nav-mobile-cta').forEach(link => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('open');
+    navBtn.classList.remove('open');
+    navBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// FORMULÁRIO DE CONTACTO
+// ═══════════════════════════════════════════════════════════════
+
 function validarEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 function validarTelefone(tel) {
-  return /^\d{9}$/.test(tel.replace(/\s/g, ""));
+  return /^\d{9}$/.test(tel.replace(/\s/g, ''));
 }
- 
-// ── CAPTCHA simples ─────────────────────────────────────────────
+
+// ── CAPTCHA ─────────────────────────────────────────────────────
 let captchaResposta = 0;
- 
+
 function gerarCaptcha() {
   const n1 = Math.floor(Math.random() * 10) + 1;
   const n2 = Math.floor(Math.random() * 10) + 1;
-  document.getElementById("captcha_num1").textContent = n1;
-  document.getElementById("captcha_num2").textContent = n2;
-  document.getElementById("captcha_answer").value = "";
+  document.getElementById('captcha_num1').textContent = n1;
+  document.getElementById('captcha_num2').textContent = n2;
+  document.getElementById('captcha_answer').value = '';
   captchaResposta = n1 + n2;
 }
- 
-// ── Rate limiting (máx 3 submissões / hora) ─────────────────────
+
+// ── Rate limiting (máx 3 / hora) ────────────────────────────────
 function verificarRateLimit() {
   const agora = Date.now();
-  const submissoes = JSON.parse(localStorage.getItem("acc_submissions") || "[]");
-  const recentes = submissoes.filter((t) => agora - t < 3_600_000);
+  const submissoes = JSON.parse(localStorage.getItem('acc_submissions') || '[]');
+  const recentes = submissoes.filter(t => agora - t < 3_600_000);
   if (recentes.length >= 3) return false;
   recentes.push(agora);
-  localStorage.setItem("acc_submissions", JSON.stringify(recentes));
+  localStorage.setItem('acc_submissions', JSON.stringify(recentes));
   return true;
 }
- 
-// ── Mostrar feedback no formulário (substitui alert()) ──────────
-function mostrarFeedback(mensagem, tipo) {
-  let el = document.getElementById("form-feedback");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "form-feedback";
-    el.style.cssText =
-      "margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13px;font-weight:500;line-height:1.5;";
-    document.getElementById("submitBtn").insertAdjacentElement("afterend", el);
-  }
-  if (tipo === "erro") {
-    el.style.background = "#fef2f2";
-    el.style.color = "#b91c1c";
-    el.style.border = "1px solid #fecaca";
-  } else {
-    el.style.background = "#f0fdf4";
-    el.style.color = "#15803d";
-    el.style.border = "1px solid #bbf7d0";
-  }
-  el.textContent = mensagem;
-  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+// ── Erros inline por campo ───────────────────────────────────────
+function mostrarErroCampo(id, mensagem) {
+  const campo = document.getElementById(id);
+  const erroEl = document.getElementById('erro-' + id);
+  if (campo)  campo.classList.add('erro');
+  if (erroEl) { erroEl.textContent = mensagem; erroEl.classList.add('visivel'); }
 }
- 
-// ── Função principal de submissão ───────────────────────────────
+
+function limparErroCampo(id) {
+  const campo = document.getElementById(id);
+  const erroEl = document.getElementById('erro-' + id);
+  if (campo)  campo.classList.remove('erro');
+  if (erroEl) { erroEl.textContent = ''; erroEl.classList.remove('visivel'); }
+}
+
+function limparTodosErros() {
+  ['nome','email','telefone','servico','mensagem','rgpd','captcha'].forEach(limparErroCampo);
+  const fb = document.getElementById('form-feedback-global');
+  fb.className = 'form-feedback-global';
+  fb.textContent = '';
+}
+
+function mostrarFeedbackGlobal(mensagem, tipo) {
+  const fb = document.getElementById('form-feedback-global');
+  fb.textContent = mensagem;
+  fb.className = 'form-feedback-global ' + tipo;
+  fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Limpar erro ao campo ao começar a editar
+['nome','email','telefone','servico','mensagem'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => limparErroCampo(id));
+});
+document.getElementById('rgpd_consent').addEventListener('change', () => limparErroCampo('rgpd'));
+
+// ── Submissão principal ──────────────────────────────────────────
 async function handleFormSubmit() {
-  // 1. Honeypot — detetar bots
-  if (document.getElementById("website").value.trim() !== "") return;
- 
+  limparTodosErros();
+
+  // 1. Honeypot
+  if (document.getElementById('website').value.trim() !== '') return;
+
   // 2. CAPTCHA
-  const respostaUtilizador = parseInt(document.getElementById("captcha_answer").value);
+  const respostaUtilizador = parseInt(document.getElementById('captcha_answer').value);
   if (isNaN(respostaUtilizador) || respostaUtilizador !== captchaResposta) {
-    mostrarFeedback("❌ Resposta do CAPTCHA incorreta. Tente novamente.", "erro");
+    mostrarErroCampo('captcha', 'Resposta incorreta. Tente novamente.');
     gerarCaptcha();
     return;
   }
- 
+
   // 3. Rate limit
   if (!verificarRateLimit()) {
-    mostrarFeedback(
-      "⏳ Limite de pedidos atingido. Tente novamente em 1 hora ou contacte-nos por WhatsApp: +351 910 680 078",
-      "erro"
-    );
+    mostrarFeedbackGlobal('⏳ Limite de pedidos atingido. Tente em 1 hora ou contacte-nos por WhatsApp: +351 910 680 078', 'erro');
     return;
   }
- 
+
   // 4. Ler campos
-  const nome     = document.getElementById("nome").value.trim();
-  const email    = document.getElementById("email").value.trim();
-  const telefone = document.getElementById("telefone").value.trim();
-  const servico  = document.getElementById("servico").value.trim();
-  const mensagem = document.getElementById("mensagem").value.trim();
-  const rgpd     = document.getElementById("rgpd_consent").checked;
- 
-  // 5. Validação client-side
-  const erros = [];
-  if (nome.length < 3)         erros.push("Nome deve ter pelo menos 3 caracteres.");
-  if (!validarEmail(email))    erros.push("Email inválido.");
-  if (!validarTelefone(telefone)) erros.push("Telefone deve ter 9 dígitos.");
-  if (servico === "")          erros.push("Selecione um serviço.");
-  if (mensagem.length < 10)   erros.push("Mensagem deve ter pelo menos 10 caracteres.");
-  if (!rgpd)                   erros.push("Deve aceitar a Política de Privacidade.");
- 
-  if (erros.length > 0) {
-    mostrarFeedback(erros.join(" "), "erro");
-    return;
-  }
- 
-  // 6. Enviar para a Netlify Function (backend seguro)
-  const btn = document.getElementById("submitBtn");
+  const nome     = document.getElementById('nome').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const servico  = document.getElementById('servico').value.trim();
+  const mensagem = document.getElementById('mensagem').value.trim();
+  const rgpd     = document.getElementById('rgpd_consent').checked;
+
+  // 5. Validação com erros por campo
+  let temErros = false;
+  if (nome.length < 3)            { mostrarErroCampo('nome', 'Mínimo 3 caracteres.'); temErros = true; }
+  if (!validarEmail(email))       { mostrarErroCampo('email', 'Email inválido.'); temErros = true; }
+  if (!validarTelefone(telefone)) { mostrarErroCampo('telefone', 'Deve ter 9 dígitos.'); temErros = true; }
+  if (servico === '')             { mostrarErroCampo('servico', 'Selecione um serviço.'); temErros = true; }
+  if (mensagem.length < 10)      { mostrarErroCampo('mensagem', 'Mínimo 10 caracteres.'); temErros = true; }
+  if (!rgpd)                     { mostrarErroCampo('rgpd', 'Deve aceitar a Política de Privacidade.'); temErros = true; }
+
+  if (temErros) return;
+
+  // 6. Enviar para Netlify Function
+  const btn = document.getElementById('submitBtn');
   btn.disabled = true;
-  btn.textContent = "A enviar…";
- 
+  btn.textContent = 'A enviar…';
+
   try {
-    const res = await fetch("/.netlify/functions/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nome, email, telefone, servico, mensagem,
-        _honeypot: document.getElementById("website").value, // enviado para validação server-side também
-      }),
+    const res = await fetch('/.netlify/functions/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, telefone, servico, mensagem, _honeypot: '' }),
     });
- 
+
     const data = await res.json();
- 
+
     if (res.ok) {
-      mostrarFeedback(
-        "✅ Pedido enviado com sucesso! Receberá uma confirmação por email em breve.",
-        "sucesso"
-      );
-      // Limpar formulário
-      ["nome", "email", "telefone", "mensagem"].forEach(
-        (id) => (document.getElementById(id).value = "")
-      );
-      document.getElementById("servico").value = "";
-      document.getElementById("rgpd_consent").checked = false;
+      mostrarFeedbackGlobal('✅ Pedido enviado! Receberá uma confirmação por email em breve.', 'sucesso');
+      ['nome','email','telefone','mensagem'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('servico').value = '';
+      document.getElementById('rgpd_consent').checked = false;
       gerarCaptcha();
     } else {
-      mostrarFeedback("❌ " + (data.error || "Erro ao enviar. Tente novamente."), "erro");
+      mostrarFeedbackGlobal('❌ ' + (data.error || 'Erro ao enviar. Tente novamente.'), 'erro');
       gerarCaptcha();
     }
   } catch {
-    mostrarFeedback(
-      "❌ Erro de ligação. Verifique a sua internet ou contacte-nos por WhatsApp.",
-      "erro"
-    );
+    mostrarFeedbackGlobal('❌ Erro de ligação. Verifique a internet ou contacte-nos por WhatsApp.', 'erro');
   } finally {
     btn.disabled = false;
-    btn.textContent = "Enviar Pedido →";
+    btn.textContent = 'Enviar Pedido →';
   }
 }
- 
-// ── Inicializar CAPTCHA quando a página carrega ─────────────────
-window.addEventListener("DOMContentLoaded", () => {
+
+// ── Inicializar ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
   gerarCaptcha();
 });
-
 </script>
 </body>
 </html>
