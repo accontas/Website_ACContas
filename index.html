@@ -141,10 +141,34 @@
 
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ACContas – Contabilidade & Fiscalidade</title>
+<title>ACContas – Contabilidade & Fiscalidade | Aveiro</title>
+
+<!-- SEO -->
+<meta name="description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. Serviços de IRS, Trabalhadores Independentes, Contabilidade Organizada e Consultoria Fiscal. Serviço remoto em todo Portugal. Avaliação 5.0★ no Zaask."/>
+<meta name="keywords" content="contabilista Aveiro, IRS, trabalhador independente, contabilidade organizada, consultoria fiscal, OCC, fiscalidade Portugal"/>
+<meta name="author" content="ACContas"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://accontas.pt/"/>
+
+<!-- Open Graph (partilha no WhatsApp, LinkedIn, Facebook) -->
+<meta property="og:type"        content="website"/>
+<meta property="og:url"         content="https://accontas.pt/"/>
+<meta property="og:title"       content="ACContas – Contabilidade & Fiscalidade | Aveiro"/>
+<meta property="og:description" content="Contabilista Certificado e Mestre em Fiscalidade. IRS, Trabalhadores Independentes, Contabilidade Organizada. Avaliação 5.0★ · Profissional de Excelência Zaask 2025."/>
+<meta property="og:image"       content="https://accontas.pt/og-image.png"/>
+<meta property="og:locale"      content="pt_PT"/>
+<meta property="og:site_name"   content="ACContas"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image"/>
+<meta name="twitter:title"       content="ACContas – Contabilidade & Fiscalidade | Aveiro"/>
+<meta name="twitter:description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. IRS, TI, Contabilidade Organizada. 5.0★ Zaask."/>
+<meta name="twitter:image"       content="https://accontas.pt/og-image.png"/>
+
+<!-- Preconnect para fontes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"/>
 
 <!-- FAVICON com logo -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='95' fill='%231a4d56'/%3E%3Cpath d='M 80 50 A 40 40 0 1 0 80 150' fill='none' stroke='%23e8e6e0' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M 120 50 A 40 40 0 1 0 120 150' fill='none' stroke='%232a7880' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
@@ -810,24 +834,14 @@ footer {
   .nav-mobile-btn { display: block; }
 
   /* Hero */
-  .hero {
-    padding: 100px 4% 60px; min-height: auto;
-    flex-direction: column; align-items: flex-start;
-    overflow: visible;
-  }
+  .hero { padding: 100px 4% 60px; min-height: auto; }
   .hero h1 { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; }
   .hero-actions { flex-direction: column; gap: 12px; }
   .hero-actions a { text-align: center; }
   .hero-stats { gap: 24px; margin-top: 40px; padding-top: 28px; }
   .hero-stat-num { font-size: 28px; }
-  .hero-right {
-    position: static; width: 100%;
-    margin-top: 40px; transform: none;
-    padding-bottom: 8px;
-  }
-  .hero-card { padding: 20px; }
-  .rating-num { font-size: 24px; }
+  .hero-right { position: static; width: 100%; margin-top: 32px; transform: none; }
 
   /* Secções */
   .section { padding: 64px 4%; }
@@ -884,10 +898,38 @@ footer {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ─── BOTÃO WHATSAPP FLUTUANTE (mobile) ─── */
+.whatsapp-float {
+  display: none;
+  position: fixed; bottom: 24px; right: 20px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: white;
+  align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.45);
+  text-decoration: none; font-size: 28px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 24px rgba(37,211,102,0.55); }
+@media (max-width: 768px) { .whatsapp-float { display: flex; } }
 </style>
 </head>
 
 <body>
+
+<!-- Skip link acessibilidade -->
+<a href="#main-content" style="position:absolute;left:-9999px;top:4px;z-index:9999;background:var(--teal);color:white;padding:8px 16px;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none;" onfocus="this.style.left='4px'" onblur="this.style.left='-9999px'">Saltar para o conteúdo</a>
+
+<!-- BOTÃO WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/351910680078?text=Ol%C3%A1%20Andr%C3%A9%2C%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20seus%20servi%C3%A7os."
+   class="whatsapp-float"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="Contactar via WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
 
 <!-- NAV -->
 <nav>
@@ -929,7 +971,7 @@ footer {
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="main-content">
   <div class="hero-bg-lines"></div>
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
@@ -1371,10 +1413,10 @@ footer {
     
     <div class="badges-grid">
       <div class="badge-item">
-        <a target="_blank" href="https://www.zaask.pt/contabilistas/regiao-centro/aveiro?utm_source=referral&utm_medium=widget&utm_campaign=toppro2025#topuser-ACContas" alt="Top pro 2025" title="Top pro 2025"><img src="https://www.zaask.pt/widget?user=503747&widget=excelent" alt="ACContas"/></a>
+        <a target="_blank" href="https://www.zaask.pt/contabilistas/regiao-centro/aveiro?utm_source=referral&utm_medium=widget&utm_campaign=toppro2025#topuser-ACContas" alt="Top pro 2025" title="Top pro 2025"><img src="https://www.zaask.pt/widget?user=503747&widget=excelent" alt="ACContas - Profissional de Excelência Zaask 2025" loading="lazy" width="200" height="80"/></a>
       </div>
       <div class="badge-item">
-        <a target="_blank" href="https://www.zaask.pt/user/ACContas" alt="Empresas Zaask" title="Empresas Zaask"><img src="https://www.zaask.pt/widget?user=503747&widget=pro-since&color=blue" alt="ACContas"/></a>
+        <a target="_blank" href="https://www.zaask.pt/user/ACContas" alt="Empresas Zaask" title="Empresas Zaask"><img src="https://www.zaask.pt/widget?user=503747&widget=pro-since&color=blue" alt="ACContas - Pro desde Zaask" loading="lazy" width="200" height="80"/></a>
       </div>
     </div>
   </div>

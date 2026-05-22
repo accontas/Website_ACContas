@@ -1,25 +1,59 @@
-# ─────────────────────────────────────────────
-# netlify.toml — Configuração do Netlify
-# ─────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────
+# netlify.toml — Configuração completa do Netlify
+# ACContas · accontas.pt
+# ─────────────────────────────────────────────────────────────────
 
 [build]
-  # Pasta raiz dos ficheiros do site
-  publish = "."
-  # Pasta onde estão as Netlify Functions
+  publish   = "."
   functions = "netlify/functions"
 
-# Cabeçalhos de segurança (aplicados a todas as páginas)
+# ── Cabeçalhos globais (todas as páginas) ───────────────────────
 [[headers]]
   for = "/*"
   [headers.values]
+    # Impede clickjacking (site não pode ser embebido em iframe)
     X-Frame-Options = "DENY"
+
+    # Impede sniffing do tipo de conteúdo
     X-Content-Type-Options = "nosniff"
+
+    # Referrer apenas para o mesmo domínio
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Cabeçalhos CORS para as Functions
+    # Desativa acesso a câmara, microfone, geolocalização, etc.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+
+    # Força HTTPS por 1 ano (incluindo subdomínios)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+    # Content Security Policy
+    # - default-src 'self': tudo por defeito só do próprio domínio
+    # - script-src: permite GA e o script inline de consentimento
+    # - style-src: permite Google Fonts e estilos inline
+    # - font-src: permite Google Fonts
+    # - img-src: permite data URIs (favicon) e Zaask (badges)
+    # - connect-src: permite apenas chamadas à própria Function
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.zaask.pt; connect-src 'self' https://www.google-analytics.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+
+    # Proteção XSS no browser (browsers mais antigos)
+    X-XSS-Protection = "1; mode=block"
+
+# ── CORS para Netlify Functions ──────────────────────────────────
 [[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
-    Access-Control-Allow-Origin = "https://accontas.pt"
+    Access-Control-Allow-Origin  = "https://accontas.pt"
     Access-Control-Allow-Methods = "POST, OPTIONS"
     Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Max-Age       = "86400"
+
+# ── Cache de assets ──────────────────────────────────────────────
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
