@@ -1332,128 +1332,158 @@ document.querySelectorAll('.faq-item .faq-toggle').forEach(button => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-// VALIDAÇÕES DO FORMULÁRIO
+// FORMULÁRIO DE CONTACTO — ACContas
+// Chama a Netlify Function /contact em vez do Make.com diretamente.
+// A API key e webhook URL estão seguras no servidor.
 // ═══════════════════════════════════════════════════════════════
-
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+ 
+// ── Helpers de validação ────────────────────────────────────────
+function validarEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
-
-function validatePhoneNumber(phone) {
-  const phoneRegex = /^\d{9}$/;
-  return phoneRegex.test(phone.replace(/\s/g, ''));
+function validarTelefone(tel) {
+  return /^\d{9}$/.test(tel.replace(/\s/g, ""));
 }
-
-function handleFormSubmit() {
-  const nome = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const telefone = document.getElementById('telefone').value.trim();
-  const servico = document.getElementById('servico').value.trim();
-  const mensagem = document.getElementById('mensagem').value.trim();
-
-  // Validações
-  let isValid = true;
-  let errorMsg = '';
-
-  if (nome.length < 3) {
-    isValid = false;
-    errorMsg += 'Nome deve ter pelo menos 3 caracteres.\n';
+ 
+// ── CAPTCHA simples ─────────────────────────────────────────────
+let captchaResposta = 0;
+ 
+function gerarCaptcha() {
+  const n1 = Math.floor(Math.random() * 10) + 1;
+  const n2 = Math.floor(Math.random() * 10) + 1;
+  document.getElementById("captcha_num1").textContent = n1;
+  document.getElementById("captcha_num2").textContent = n2;
+  document.getElementById("captcha_answer").value = "";
+  captchaResposta = n1 + n2;
+}
+ 
+// ── Rate limiting (máx 3 submissões / hora) ─────────────────────
+function verificarRateLimit() {
+  const agora = Date.now();
+  const submissoes = JSON.parse(localStorage.getItem("acc_submissions") || "[]");
+  const recentes = submissoes.filter((t) => agora - t < 3_600_000);
+  if (recentes.length >= 3) return false;
+  recentes.push(agora);
+  localStorage.setItem("acc_submissions", JSON.stringify(recentes));
+  return true;
+}
+ 
+// ── Mostrar feedback no formulário (substitui alert()) ──────────
+function mostrarFeedback(mensagem, tipo) {
+  let el = document.getElementById("form-feedback");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "form-feedback";
+    el.style.cssText =
+      "margin-top:12px;padding:12px 16px;border-radius:8px;font-size:13px;font-weight:500;line-height:1.5;";
+    document.getElementById("submitBtn").insertAdjacentElement("afterend", el);
   }
-
-  if (!validateEmail(email)) {
-    isValid = false;
-    errorMsg += 'Email inválido.\n';
+  if (tipo === "erro") {
+    el.style.background = "#fef2f2";
+    el.style.color = "#b91c1c";
+    el.style.border = "1px solid #fecaca";
+  } else {
+    el.style.background = "#f0fdf4";
+    el.style.color = "#15803d";
+    el.style.border = "1px solid #bbf7d0";
   }
-
-  if (!validatePhoneNumber(telefone)) {
-    isValid = false;
-    errorMsg += 'Telefone deve ter 9 dígitos.\n';
-  }
-
-  if (servico === '') {
-    isValid = false;
-    errorMsg += 'Selecione um serviço.\n';
-  }
-
-  if (mensagem.length < 10) {
-    isValid = false;
-    errorMsg += 'Mensagem deve ter pelo menos 10 caracteres.\n';
-  }
-
-  if (!document.getElementById('rgpd_consent').checked) {
-    isValid = false;
-    errorMsg += 'Deve aceitar a Política de Privacidade para continuar.\n';
-  }
-
-  if (!isValid) {
-    alert('Erros encontrados:\n\n' + errorMsg);
+  el.textContent = mensagem;
+  el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+ 
+// ── Função principal de submissão ───────────────────────────────
+async function handleFormSubmit() {
+  // 1. Honeypot — detetar bots
+  if (document.getElementById("website").value.trim() !== "") return;
+ 
+  // 2. CAPTCHA
+  const respostaUtilizador = parseInt(document.getElementById("captcha_answer").value);
+  if (isNaN(respostaUtilizador) || respostaUtilizador !== captchaResposta) {
+    mostrarFeedback("❌ Resposta do CAPTCHA incorreta. Tente novamente.", "erro");
+    gerarCaptcha();
     return;
   }
-
-  // Preparar dados para envio
-  const formData = {
-    nome,
-    email,
-    telefone,
-    servico,
-    mensagem,
-    timestamp: new Date().toISOString()
-  };
-
-  console.log('📨 Enviando dados:', formData);
-
-  // Desabilitar botão durante envio
-  const submitBtn = document.getElementById('submitBtn');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Enviando...';
-
-  // WEBHOOK para n8n (ALTERAR URL QUANDO TIVER A URL DO WEBHOOK)
-  const webhookUrl = 'https://hook.eu1.make.com/nvr2il17ghnjdsb1i1mdv4fbi24ucr7g';
-
-  fetch(webhookUrl, {
-    method: 'POST',
-   headers: {
-  'Content-Type': 'application/json',
-  'x-make-apikey': 'accontas-2024-xK9m'
-},
-    body: JSON.stringify(formData)
-  })
-  .then(response => {
-  console.log('📡 Status HTTP:', response.status);
-  return response.text().then(text => {
-    console.log('📨 Resposta bruta:', text);
-    try {
-      return JSON.parse(text);
-    } catch (e) {
-      return { raw: text };  // ✅ Se não for JSON, guarda texto
+ 
+  // 3. Rate limit
+  if (!verificarRateLimit()) {
+    mostrarFeedback(
+      "⏳ Limite de pedidos atingido. Tente novamente em 1 hora ou contacte-nos por WhatsApp: +351 910 680 078",
+      "erro"
+    );
+    return;
+  }
+ 
+  // 4. Ler campos
+  const nome     = document.getElementById("nome").value.trim();
+  const email    = document.getElementById("email").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
+  const servico  = document.getElementById("servico").value.trim();
+  const mensagem = document.getElementById("mensagem").value.trim();
+  const rgpd     = document.getElementById("rgpd_consent").checked;
+ 
+  // 5. Validação client-side
+  const erros = [];
+  if (nome.length < 3)         erros.push("Nome deve ter pelo menos 3 caracteres.");
+  if (!validarEmail(email))    erros.push("Email inválido.");
+  if (!validarTelefone(telefone)) erros.push("Telefone deve ter 9 dígitos.");
+  if (servico === "")          erros.push("Selecione um serviço.");
+  if (mensagem.length < 10)   erros.push("Mensagem deve ter pelo menos 10 caracteres.");
+  if (!rgpd)                   erros.push("Deve aceitar a Política de Privacidade.");
+ 
+  if (erros.length > 0) {
+    mostrarFeedback(erros.join(" "), "erro");
+    return;
+  }
+ 
+  // 6. Enviar para a Netlify Function (backend seguro)
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "A enviar…";
+ 
+  try {
+    const res = await fetch("/.netlify/functions/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nome, email, telefone, servico, mensagem,
+        _honeypot: document.getElementById("website").value, // enviado para validação server-side também
+      }),
+    });
+ 
+    const data = await res.json();
+ 
+    if (res.ok) {
+      mostrarFeedback(
+        "✅ Pedido enviado com sucesso! Receberá uma confirmação por email em breve.",
+        "sucesso"
+      );
+      // Limpar formulário
+      ["nome", "email", "telefone", "mensagem"].forEach(
+        (id) => (document.getElementById(id).value = "")
+      );
+      document.getElementById("servico").value = "";
+      document.getElementById("rgpd_consent").checked = false;
+      gerarCaptcha();
+    } else {
+      mostrarFeedback("❌ " + (data.error || "Erro ao enviar. Tente novamente."), "erro");
+      gerarCaptcha();
     }
-  });
-})
-  .then(data => {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Enviar Pedido →';
-    
-    // Sucesso
-    alert('✅ Pedido enviado com sucesso!\n\nReceberá uma confirmação no seu email em breve.\nEntraremos em contacto em menos de 24 horas úteis.');
-    
-    // Limpar formulário
-    document.getElementById('nome').value = '';
-    document.getElementById('email').value = '';
-    document.getElementById('telefone').value = '';
-    document.getElementById('servico').value = '';
-    document.getElementById('mensagem').value = '';
-    
-    console.log('✅ Resposta do servidor:', data);
-  })
-  .catch(error => {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Enviar Pedido →';
-    
-    console.error('❌ Erro:', error);
-    alert('❌ Erro ao enviar o pedido.\n\nPor favor, tente novamente ou contacte-nos por telefone.');
-  });
+  } catch {
+    mostrarFeedback(
+      "❌ Erro de ligação. Verifique a sua internet ou contacte-nos por WhatsApp.",
+      "erro"
+    );
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Enviar Pedido →";
+  }
 }
+ 
+// ── Inicializar CAPTCHA quando a página carrega ─────────────────
+window.addEventListener("DOMContentLoaded", () => {
+  gerarCaptcha();
+});
+
 
 // ═══════════════════════════════════════════════════════════════
 // PROTEÇÃO CONTRA SPAM
