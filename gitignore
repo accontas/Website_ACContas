@@ -1,0 +1,11 @@
+# Variáveis de ambiente — NUNCA commitar
+.env
+.env.local
+.env.*.local
+
+# Netlify (cache local)
+.netlify/
+
+# Node.js (se usares npm para Prettier/ESLint)
+node_modules/
+npm-debug.log*

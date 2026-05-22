@@ -1,0 +1,25 @@
+# ─────────────────────────────────────────────
+# netlify.toml — Configuração do Netlify
+# ─────────────────────────────────────────────
+
+[build]
+  # Pasta raiz dos ficheiros do site
+  publish = "."
+  # Pasta onde estão as Netlify Functions
+  functions = "netlify/functions"
+
+# Cabeçalhos de segurança (aplicados a todas as páginas)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cabeçalhos CORS para as Functions
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://accontas.pt"
+    Access-Control-Allow-Methods = "POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
