@@ -82,11 +82,12 @@ exports.handler = async function (event) {
   }
 
   // ── 5. Variáveis de ambiente ────────────────────────────────
-  const WEBHOOK_URL = process.env.MAKE_WEBHOOK_URL;
-  const API_KEY     = process.env.MAKE_API_KEY;
+  const WEBHOOK_URL          = process.env.MAKE_WEBHOOK_URL;
+  const API_KEY              = process.env.MAKE_API_KEY;
+  const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY;
 
-  if (!WEBHOOK_URL || !API_KEY) {
-    console.error('❌ Variáveis de ambiente em falta');
+  if (!WEBHOOK_URL || !API_KEY || !TURNSTILE_SECRET_KEY) {
+    console.error('❌ Variáveis de ambiente em falta (MAKE_WEBHOOK_URL / MAKE_API_KEY / TURNSTILE_SECRET_KEY)');
     return { statusCode: 500, body: JSON.stringify({ error: 'Configuração do servidor incompleta' }) };
   }
 
@@ -98,12 +99,39 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Pedido inválido' }) };
   }
 
-  const { nome, email, telefone, servico, mensagem, _honeypot } = body;
+  const { nome, email, telefone, servico, mensagem, _honeypot, turnstileToken } = body;
 
   // ── 7. Honeypot ─────────────────────────────────────────────
   if (_honeypot && _honeypot.trim() !== '') {
     console.warn('🤖 Bot detetado (honeypot)');
     return { statusCode: 200, body: JSON.stringify({ ok: true }) }; // Silencioso
+  }
+
+  // ── 7.5 Validar Cloudflare Turnstile ────────────────────────
+  if (!turnstileToken) {
+    console.warn('🤖 Turnstile token ausente');
+    return { statusCode: 400, body: JSON.stringify({ error: 'Verificação de segurança em falta. Recarregue a página.' }) };
+  }
+
+  try {
+    const tsRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret:   TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+        remoteip: ip,
+      }),
+    });
+    const tsData = await tsRes.json();
+
+    if (!tsData.success) {
+      console.warn('🤖 Turnstile inválido:', tsData['error-codes']);
+      return { statusCode: 400, body: JSON.stringify({ error: 'Verificação de segurança falhou. Tente novamente.' }) };
+    }
+  } catch (err) {
+    console.error('❌ Erro ao verificar Turnstile:', err.message);
+    return { statusCode: 502, body: JSON.stringify({ error: 'Erro na verificação de segurança. Tente novamente.' }) };
   }
 
   // ── 8. Validação server-side ────────────────────────────────
