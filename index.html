@@ -170,8 +170,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet"/>
 
+<!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <!-- FAVICON com logo -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg width='200' height='200' viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='100' cy='100' r='95' fill='%231a4d56'/%3E%3Cpath d='M 80 50 A 40 40 0 1 0 80 150' fill='none' stroke='%23e8e6e0' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M 120 50 A 40 40 0 1 0 120 150' fill='none' stroke='%232a7880' stroke-width='11' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
 
 <style>
 :root {
@@ -287,6 +293,10 @@ nav {
   padding: 120px 5% 80px;
   position: relative; overflow: hidden;
 }
+.hero-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; gap: 40px; position: relative; z-index: 1;
+}
 .hero-bg-lines {
   position: absolute; inset: 0; pointer-events: none;
   background-image:
@@ -306,7 +316,7 @@ nav {
   background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
   pointer-events: none;
 }
-.hero-content { position: relative; z-index: 1; max-width: 680px; }
+.hero-content { position: relative; z-index: 1; max-width: 580px; flex: 1 1 auto; }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(14,165,160,0.12); border: 1px solid rgba(14,165,160,0.3);
@@ -355,8 +365,7 @@ nav {
 }
 .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; font-weight: 400; }
 .hero-right {
-  position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
-  width: 340px; z-index: 1;
+  flex: 0 0 320px; width: 320px; z-index: 1;
 }
 .hero-card {
   background: rgba(255,255,255,0.04);
@@ -562,22 +571,63 @@ nav {
 }
 .about-visual-label { font-size: 14px; color: var(--text-muted); }
 
-/* ─── REVIEWS ─── */
+/* ─── REVIEWS CAROUSEL ─── */
 .reviews {
   background: white;
 }
-.reviews-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+.carousel-outer {
+  display: flex; align-items: center; gap: 12px;
+  position: relative;
 }
+.carousel-viewport {
+  overflow: hidden; flex: 1;
+}
+.carousel-track {
+  display: flex; gap: 24px;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+.carousel-slide {
+  flex: 0 0 calc((100% - 48px) / 3);
+  min-width: 0;
+}
+.carousel-btn {
+  flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid var(--light-border); background: white;
+  font-size: 24px; color: var(--navy); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; line-height: 1; padding-bottom: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.carousel-btn:hover { background: var(--teal); color: white; border-color: var(--teal); }
+.carousel-btn:disabled { opacity: 0.3; cursor: default; }
+.carousel-dots {
+  display: flex; justify-content: center; gap: 8px; margin-top: 28px; flex-wrap: wrap;
+}
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--light-border); border: none; cursor: pointer;
+  transition: all 0.2s; padding: 0;
+}
+.carousel-dot.active { background: var(--teal); width: 24px; border-radius: 4px; }
 .review-card {
   background: linear-gradient(135deg, var(--off-white), white);
   border: 1px solid var(--light-border); border-radius: 16px;
   padding: 28px; position: relative;
+  display: flex; flex-direction: column;
 }
 .review-stars { color: var(--gold); font-size: 16px; margin-bottom: 12px; letter-spacing: 1px; }
-.review-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+.review-body { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; flex: 1; }
 .review-author-name { font-weight: 600; color: var(--text); font-size: 14px; }
 .review-author-role { font-size: 12px; color: var(--text-muted); }
+
+@media (max-width: 900px) {
+  .carousel-slide { flex: 0 0 calc((100% - 24px) / 2); }
+}
+@media (max-width: 600px) {
+  .carousel-slide { flex: 0 0 100%; }
+  .carousel-btn { width: 36px; height: 36px; font-size: 20px; flex: 0 0 36px; }
+}
 
 /* ─── FAQ ─── */
 .faq {
@@ -823,7 +873,7 @@ footer {
 /* Tablet (≤ 900px) */
 @media (max-width: 900px) {
   .services-grid { grid-template-columns: 1fr 1fr; }
-  .hero-right { width: 280px; }
+  .hero-right { flex: 0 0 280px; width: 280px; }
 }
 
 /* Mobile (≤ 768px) */
@@ -835,13 +885,14 @@ footer {
 
   /* Hero */
   .hero { padding: 100px 4% 60px; min-height: auto; }
+  .hero-inner { flex-direction: column; gap: 32px; align-items: flex-start; }
   .hero h1 { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; }
   .hero-actions { flex-direction: column; gap: 12px; }
   .hero-actions a { text-align: center; }
   .hero-stats { gap: 24px; margin-top: 40px; padding-top: 28px; }
   .hero-stat-num { font-size: 28px; }
-  .hero-right { position: static; width: 100%; margin-top: 32px; transform: none; }
+  .hero-right { flex: 0 0 auto; width: 100%; }
 
   /* Secções */
   .section { padding: 64px 4%; }
@@ -858,8 +909,7 @@ footer {
   .profile-avatar { width: 80px; height: 80px; }
   .profile-name { font-size: 22px; }
 
-  /* Reviews */
-  .reviews-grid { grid-template-columns: 1fr; }
+  /* Reviews - handled by carousel CSS */
 
   /* FAQ */
   .faq-grid { grid-template-columns: 1fr; gap: 0; }
@@ -976,6 +1026,7 @@ footer {
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
   
+  <div class="hero-inner">
   <div class="hero-content">
     <div class="hero-badge">
       ✨ Contabilista Certificado · Mestre em Fiscalidade
@@ -1026,6 +1077,7 @@ footer {
       </div>
     </div>
   </div>
+  </div><!-- /hero-inner -->
 </section>
 
 <!-- SERVICES -->
@@ -1160,35 +1212,188 @@ footer {
   </div>
 </section>
 
-<!-- REVIEWS -->
+<!-- REVIEWS CAROUSEL -->
 <section class="section reviews fade-in" id="avaliacoes">
   <div class="section-header" style="margin-bottom: 48px;">
     <span class="section-label">Avaliações</span>
     <h2 class="section-title">O que dizem os <em>meus clientes</em></h2>
+    <p class="section-sub" style="margin-top:8px;">Mais de 57 avaliações verificadas no Zaask · Classificação 5.0★</p>
   </div>
-  
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-body">"Profissional muito competente, atencioso e com uma resposta rápida aos pedidos. Recomendo vivamente!"</p>
-      <div class="review-author-name">Paulo M.</div>
-      <div class="review-author-role">Cliente no Zaask</div>
-    </div>
-    
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-body">"Simplificou completamente a minha gestão fiscal. Senti-me acompanhado em todo o processo."</p>
-      <div class="review-author-name">Joana S.</div>
-      <div class="review-author-role">Trabalhadadora Independente</div>
-    </div>
-    
-    <div class="review-card">
-      <div class="review-stars">★★★★★</div>
-      <p class="review-body">"Excelente profissional. Resolveu todas as minhas dúvidas e poupou-me bastante em impostos."</p>
-      <div class="review-author-name">Carlos R.</div>
-      <div class="review-author-role">Cliente Empresarial</div>
-    </div>
-  </div>
+
+  <!-- Carousel wrapper -->
+  <div class="carousel-outer">
+    <button class="carousel-btn carousel-prev" aria-label="Anterior">&#8249;</button>
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="reviewsTrack">
+
+        <!-- Review 1 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Profissional muito competente, atencioso e com uma resposta rápida aos pedidos. Recomendo vivamente a toda a gente!"</p>
+          <div class="review-author-name">Paulo M.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Simplificou completamente a minha gestão fiscal. Senti-me acompanhado em todo o processo e muito bem esclarecido."</p>
+          <div class="review-author-name">Joana S.</div>
+          <div class="review-author-role">Trabalhadora Independente</div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Excelente profissional. Resolveu todas as minhas dúvidas e poupou-me bastante em impostos. Muito recomendado!"</p>
+          <div class="review-author-name">Carlos R.</div>
+          <div class="review-author-role">Cliente Empresarial</div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Serviço de excelência! Muito competente, rigoroso e sempre disponível para esclarecer qualquer dúvida. 100% recomendo."</p>
+          <div class="review-author-name">Maria F.</div>
+          <div class="review-author-role">Pessoa Singular</div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Tratou do meu IRS com grande profissionalismo e atenção ao detalhe. Ótima experiência, sem dúvida voltarei!"</p>
+          <div class="review-author-name">Rui A.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Muito profissional e prestativo. Ajudou-me a regularizar a minha situação fiscal de forma clara e eficaz."</p>
+          <div class="review-author-name">Ana P.</div>
+          <div class="review-author-role">Trabalhadora Independente</div>
+        </div>
+
+        <!-- Review 7 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Excelente serviço! Rápido, eficiente e com ótima relação qualidade/preço. Recomendo a qualquer empresa ou particular."</p>
+          <div class="review-author-name">Pedro L.</div>
+          <div class="review-author-role">Empresário</div>
+        </div>
+
+        <!-- Review 8 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Desde o primeiro contacto que me senti muito bem acompanhado. Profissional de confiança, sem dúvida."</p>
+          <div class="review-author-name">Filipa C.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+        <!-- Review 9 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Muito organizado e transparente. Explicou tudo de forma simples e tornou o processo muito mais tranquilo para mim."</p>
+          <div class="review-author-name">Tiago M.</div>
+          <div class="review-author-role">Trabalhador Independente</div>
+        </div>
+
+        <!-- Review 10 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Ótimo profissional! Tratou de tudo com muito cuidado e rigor. Estou muito satisfeita com o resultado."</p>
+          <div class="review-author-name">Sofia G.</div>
+          <div class="review-author-role">Pessoa Singular</div>
+        </div>
+
+        <!-- Review 11 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Profissional muito dedicado e com grande conhecimento técnico. Ajudou a otimizar a fiscalidade da minha empresa."</p>
+          <div class="review-author-name">Nuno R.</div>
+          <div class="review-author-role">Empresário</div>
+        </div>
+
+        <!-- Review 12 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Simples, rápido e muito eficiente. Recomendo a qualquer pessoa que precise de apoio na área fiscal."</p>
+          <div class="review-author-name">Inês D.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+        <!-- Review 13 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Fiquei muito satisfeito com o serviço. Profissional atento, disponível e com ótimas soluções fiscais."</p>
+          <div class="review-author-name">Gonçalo B.</div>
+          <div class="review-author-role">Trabalhador Independente</div>
+        </div>
+
+        <!-- Review 14 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Atendimento de excelência desde o primeiro momento. Deixou tudo muito claro e sem complicações. Muito obrigada!"</p>
+          <div class="review-author-name">Marta V.</div>
+          <div class="review-author-role">Pessoa Singular</div>
+        </div>
+
+        <!-- Review 15 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Profissional muito honesto e competente. Resolveu a minha situação fiscal de forma rápida e sem stress."</p>
+          <div class="review-author-name">Bruno T.</div>
+          <div class="review-author-role">Cliente Empresarial</div>
+        </div>
+
+        <!-- Review 16 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Recomendo sem hesitar! Ótimo acompanhamento ao longo de todo o processo. Profissional de confiança."</p>
+          <div class="review-author-name">Daniela O.</div>
+          <div class="review-author-role">Trabalhadora Independente</div>
+        </div>
+
+        <!-- Review 17 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Excelente trabalho! Rápido, competente e com preços justos. Já recomendei a vários amigos."</p>
+          <div class="review-author-name">Luís S.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+        <!-- Review 18 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Serviço impecável, resposta muito rápida a todas as questões. Sem dúvida o melhor contabilista com quem trabalhei."</p>
+          <div class="review-author-name">Vera N.</div>
+          <div class="review-author-role">Empresária</div>
+        </div>
+
+        <!-- Review 19 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Muito bom profissional! Trata de tudo com grande cuidado e está sempre disponível para ajudar."</p>
+          <div class="review-author-name">Ricardo M.</div>
+          <div class="review-author-role">Trabalhador Independente</div>
+        </div>
+
+        <!-- Review 20 -->
+        <div class="review-card carousel-slide">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-body">"Processo muito bem gerido do início ao fim. Ficou tudo correto e dentro do prazo. Ótimo profissional!"</p>
+          <div class="review-author-name">Catarina A.</div>
+          <div class="review-author-role">Cliente no Zaask</div>
+        </div>
+
+      </div><!-- /carousel-track -->
+    </div><!-- /carousel-viewport -->
+    <button class="carousel-btn carousel-next" aria-label="Próximo">&#8250;</button>
+  </div><!-- /carousel-outer -->
+
+  <!-- Dots -->
+  <div class="carousel-dots" id="carouselDots" aria-label="Navegação de avaliações"></div>
+
 </section>
 
 <!-- FAQ -->
@@ -1358,15 +1563,13 @@ footer {
       <!-- HONEYPOT (campo invisível para bots) -->
       <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
       
-      <!-- CAPTCHA -->
-      <div class="captcha-container" style="background: #f5fbfa; padding: 15px; border-radius: 8px; margin-top: 15px; border: 1px solid #D4E8E6;">
-        <div style="font-size: 13px; color: var(--text); font-weight: 500; margin-bottom: 10px;">Verificação de Segurança</div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <div style="font-size: 14px; color: var(--text);">
-            <span id="captcha_num1">0</span> + <span id="captcha_num2">0</span> = 
-          </div>
-          <input type="number" id="captcha_answer" class="form-input" placeholder="Resposta" style="width: 80px; padding: 8px;">
-        </div>
+      <!-- CAPTCHA Cloudflare Turnstile -->
+      <div class="captcha-container" style="margin-top: 15px;">
+        <div class="cf-turnstile" 
+             data-sitekey="0x4AAAAAADaElhFFhQnFE_l2" 
+             data-theme="light"
+             data-language="pt-pt"
+             id="turnstileWidget"></div>
         <span class="form-field-erro" id="erro-captcha"></span>
       </div>
 
@@ -1541,6 +1744,91 @@ document.querySelectorAll('.nav-mobile-link, .nav-mobile-cta').forEach(link => {
 });
 
 // ═══════════════════════════════════════════════════════════════
+// REVIEWS CAROUSEL
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  const track    = document.getElementById('reviewsTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+  const prevBtn  = document.querySelector('.carousel-prev');
+  const nextBtn  = document.querySelector('.carousel-next');
+  if (!track) return;
+
+  const slides = track.querySelectorAll('.carousel-slide');
+  let current = 0;
+
+  function getSlidesPerView() {
+    if (window.innerWidth <= 600) return 1;
+    if (window.innerWidth <= 900) return 2;
+    return 3;
+  }
+
+  function totalGroups() {
+    return Math.ceil(slides.length / getSlidesPerView());
+  }
+
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalGroups(); i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === current ? ' active' : '');
+      dot.setAttribute('aria-label', 'Grupo ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    }
+  }
+
+  function goTo(index) {
+    const spv = getSlidesPerView();
+    const max = totalGroups() - 1;
+    current = Math.max(0, Math.min(index, max));
+
+    // Calculate offset: move by (spv slides + gap) * current group
+    const slideEl = slides[0];
+    const gap = 24;
+    const slideWidth = slideEl.offsetWidth + gap;
+    track.style.transform = `translateX(-${current * spv * slideWidth}px)`;
+
+    // Update dots
+    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+
+    // Button states
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current >= max;
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  });
+
+  // Init & re-init on resize
+  function init() { buildDots(); goTo(0); }
+  init();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { buildDots(); goTo(0); }, 200);
+  });
+
+  // Auto-advance every 6s
+  let autoplay = setInterval(() => {
+    if (current < totalGroups() - 1) goTo(current + 1);
+    else goTo(0);
+  }, 6000);
+  track.addEventListener('touchstart', () => clearInterval(autoplay), { passive: true });
+  prevBtn.addEventListener('click', () => { clearInterval(autoplay); });
+  nextBtn.addEventListener('click', () => { clearInterval(autoplay); });
+})();
+
+// ═══════════════════════════════════════════════════════════════
 // FORMULÁRIO DE CONTACTO
 // ═══════════════════════════════════════════════════════════════
 
@@ -1549,18 +1837,6 @@ function validarEmail(email) {
 }
 function validarTelefone(tel) {
   return /^\d{9}$/.test(tel.replace(/\s/g, ''));
-}
-
-// ── CAPTCHA ─────────────────────────────────────────────────────
-let captchaResposta = 0;
-
-function gerarCaptcha() {
-  const n1 = Math.floor(Math.random() * 10) + 1;
-  const n2 = Math.floor(Math.random() * 10) + 1;
-  document.getElementById('captcha_num1').textContent = n1;
-  document.getElementById('captcha_num2').textContent = n2;
-  document.getElementById('captcha_answer').value = '';
-  captchaResposta = n1 + n2;
 }
 
 // ── Rate limiting (máx 3 / hora) ────────────────────────────────
@@ -1617,11 +1893,10 @@ async function handleFormSubmit() {
   // 1. Honeypot
   if (document.getElementById('website').value.trim() !== '') return;
 
-  // 2. CAPTCHA
-  const respostaUtilizador = parseInt(document.getElementById('captcha_answer').value);
-  if (isNaN(respostaUtilizador) || respostaUtilizador !== captchaResposta) {
-    mostrarErroCampo('captcha', 'Resposta incorreta. Tente novamente.');
-    gerarCaptcha();
+  // 2. Cloudflare Turnstile token
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value || '';
+  if (!turnstileToken) {
+    mostrarErroCampo('captcha', 'Por favor complete a verificação de segurança.');
     return;
   }
 
@@ -1659,7 +1934,7 @@ async function handleFormSubmit() {
     const res = await fetch('/.netlify/functions/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, email, telefone, servico, mensagem, _honeypot: '' }),
+      body: JSON.stringify({ nome, email, telefone, servico, mensagem, turnstileToken, _honeypot: '' }),
     });
 
     const data = await res.json();
@@ -1669,10 +1944,11 @@ async function handleFormSubmit() {
       ['nome','email','telefone','mensagem'].forEach(id => document.getElementById(id).value = '');
       document.getElementById('servico').value = '';
       document.getElementById('rgpd_consent').checked = false;
-      gerarCaptcha();
+      // Reset Turnstile
+      if (window.turnstile) window.turnstile.reset('#turnstileWidget');
     } else {
       mostrarFeedbackGlobal('❌ ' + (data.error || 'Erro ao enviar. Tente novamente.'), 'erro');
-      gerarCaptcha();
+      if (window.turnstile) window.turnstile.reset('#turnstileWidget');
     }
   } catch {
     mostrarFeedbackGlobal('❌ Erro de ligação. Verifique a internet ou contacte-nos por WhatsApp.', 'erro');
@@ -1684,7 +1960,7 @@ async function handleFormSubmit() {
 
 // ── Inicializar ──────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  gerarCaptcha();
+  // Turnstile é iniciado automaticamente pelo script da Cloudflare
 });
 </script>
 </body>
