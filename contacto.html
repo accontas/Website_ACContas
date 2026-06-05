@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<!-- ======================================================== -->
+<!-- SISTEMA DE COOKIES COMPATÍVEL COM RGPD + GOOGLE ANALYTICS -->
+<!-- ======================================================== -->
+
+<!-- 1. Estilos Visuais do Banner (CSS) -->
+<style>
+  .cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: #1f2937;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: none; /* Escondido por defeito, o JavaScript decide se mostra */
+    z-index: 9999;
+    font-family: sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .cookie-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  @media (min-width: 768px) {
+    .cookie-container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .cookie-text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .cookie-text a {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+  .cookie-buttons {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+  }
+  .btn-cookie {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-accept { background: #10b981; color: white; }
+  .btn-accept:hover { background: #059669; }
+  .btn-reject { background: #4b5563; color: white; }
+  .btn-reject:hover { background: #374151; }
+</style>
+
+<!-- 2. Lógica de Bloqueio e Ativação (JavaScript com o teu ID) -->
+<script>
+  // O teu ID do Google Analytics já configurado
+  const GA_MEASUREMENT_ID = 'G-JG7XMQJR13';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  
+  // Passo 1: Bloquear o rastreio por defeito antes da escolha do utilizador
+  if (localStorage.getItem('cookieConsent') === null) {
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied'
+    });
+  } else if (localStorage.getItem('cookieConsent') === 'accepted') {
+    // Se já tinha aceitado no passado, dá autorização e carrega o Analytics
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted'
+    });
+    carregarGoogleAnalytics();
+  }
+
+  // Função que injeta o script do Google Analytics de forma segura após o consentimento
+  function carregarGoogleAnalytics() {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    document.head.appendChild(script);
+
+    script.onload = function() {
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID);
+    };
+  }
+
+  // Controlar a exibição do banner na página
+  window.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('cookieBanner');
+    const consent = localStorage.getItem('cookieConsent');
+
+    // Se é a primeira visita, mostra o banner
+    if (!consent) {
+      banner.style.display = 'block';
+    }
+
+    // Se clicar em Aceitar
+    document.getElementById('btnAcceptCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted'
+      });
+      carregarGoogleAnalytics();
+      banner.style.display = 'none';
+    });
+
+    // Se clicar em Recusar
+    document.getElementById('btnRejectCookies').addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'rejected');
+      banner.style.display = 'none';
+    });
+  });
+</script>
+
+<!-- 3. O Banner Visual (Estrutura HTML) -->
+<div id="cookieBanner" class="cookie-banner">
+  <div class="cookie-container">
+    <div class="cookie-text">
+      Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do site. Pode consultar a nossa <a href="/politica-privacidade.html">Política de Privacidade</a>.
+    </div>
+    <div class="cookie-buttons">
+      <button id="btnRejectCookies" class="btn-cookie btn-reject">Recusar</button>
+      <button id="btnAcceptCookies" class="btn-cookie btn-accept">Aceitar</button>
+    </div>
+  </div>
+</div>
+<!-- ======================================================== -->
+
+
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contacto – ACContas | Pedir Orçamento</title>
+<meta name="description" content="Peça um orçamento gratuito. Resposta em menos de 24 horas úteis. Contabilidade e fiscalidade para particulares, trabalhadores independentes e empresas."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://accontas.pt/contacto.html"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+:root {
+  --navy:#1B3A4B;--navy2:#24495A;--navy3:#2D5869;
+  --teal:#0EA5A0;--teal-light:#14C4BE;--teal-dark:#0A8A85;
+  --gold:#C9A84C;--gold-light:#E2C06B;
+  --white:#FFFFFF;--off-white:#F5FBFA;
+  --gray:#8899AA;--light-border:#D4E8E6;
+  --text:#1B3A4B;--text-muted:#4A6B7B;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,165,160,0.15);}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none;transition:transform 0.2s;}
+.nav-logo:hover{transform:scale(1.03);}
+.nav-logo-svg{width:42px;height:42px;background:linear-gradient(135deg,rgba(14,165,160,0.15),rgba(14,165,160,0.08));border-radius:10px;padding:6px;display:flex;align-items:center;justify-content:center;}
+.nav-logo-svg svg{width:100%;height:100%;}
+.nav-logo-text{font-weight:700;font-size:20px;color:white;}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.3px;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--teal-light);}
+.nav-cta{background:var(--teal);color:white;border:none;cursor:pointer;padding:10px 22px;border-radius:6px;font-size:14px;font-weight:600;font-family:'Montserrat',sans-serif;transition:background 0.2s;text-decoration:none;display:inline-block;}
+.nav-cta:hover{background:var(--teal-light);}
+.nav-mobile-btn{display:none;background:none;border:none;cursor:pointer;padding:8px;margin-right:-8px;z-index:101;}
+.nav-mobile-btn span{display:block;width:24px;height:2px;background:white;margin:5px 0;border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.nav-mobile-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-mobile-btn.open span:nth-child(2){opacity:0;}
+.nav-mobile-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(13,27,42,0.98);backdrop-filter:blur(12px);border-bottom:1px solid rgba(14,165,160,0.2);padding:24px 5% 32px;z-index:99;flex-direction:column;gap:0;}
+.nav-mobile-menu.open{display:flex;}
+.nav-mobile-menu a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:16px;font-weight:500;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);transition:color 0.2s;}
+.nav-mobile-menu a:hover{color:var(--teal-light);}
+.nav-mobile-menu .nav-mobile-cta{margin-top:20px;background:var(--teal);color:white;text-align:center;border-radius:8px;padding:14px;font-weight:600;font-size:15px;border-bottom:none;}
+@media(max-width:768px){.nav-links,.nav-cta{display:none;}.nav-mobile-btn{display:block;}}
+footer{background:var(--navy);padding:60px 5% 32px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1400px;margin:0 auto;margin-bottom:40px;}
+.footer-col-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.9);margin-bottom:16px;}
+.footer-brand-text{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.6);margin-top:12px;}
+.footer-links{list-style:none;padding:0;margin:0;}
+.footer-links li{margin-bottom:10px;}
+.footer-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--teal-light);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;color:rgba(255,255,255,0.4);flex-wrap:wrap;gap:16px;}
+.footer-copy,.footer-occ{flex:1;}
+.footer-links-legais{margin-top:20px;text-align:center;}
+.footer-links-legais a{color:rgba(255,255,255,0.6);margin:0 10px;text-decoration:none;font-size:12px;transition:color 0.2s;}
+.footer-links-legais a:hover{color:var(--teal-light);}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:24px;}.footer-bottom{flex-direction:column;text-align:center;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+.fade-in{opacity:0;transform:translateY(20px);}
+.fade-in.visible{animation:fadeInUp 0.6s ease forwards;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.whatsapp-float{display:none;position:fixed;bottom:24px;right:20px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;color:white;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.45);text-decoration:none;font-size:28px;transition:transform 0.2s,box-shadow 0.2s;}
+.whatsapp-float:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(37,211,102,0.55);}
+@media(max-width:768px){.whatsapp-float{display:flex;}}
+.section-label{display:inline-block;color:var(--teal);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.section-title{font-family:'Montserrat',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:700;line-height:1.1;letter-spacing:-0.3px;color:var(--text);margin-bottom:16px;}
+.section-title em{font-style:normal;color:var(--teal);}
+.section-sub{font-size:17px;color:var(--text-muted);line-height:1.7;max-width:540px;font-weight:300;}
+.btn-primary{background:var(--teal);color:white;border:none;cursor:pointer;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:600;font-family:'Montserrat',sans-serif;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--teal-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(14,165,160,0.35);}
+.btn-gold{background:var(--gold);color:white;border:none;cursor:pointer;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;font-family:'Montserrat',sans-serif;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,0.35);}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.3);color:white;cursor:pointer;padding:14px 32px;border-radius:8px;font-size:15px;font-weight:600;font-family:'Montserrat',sans-serif;text-decoration:none;display:inline-block;transition:all 0.2s;}
+.btn-outline:hover{border-color:white;background:rgba(255,255,255,0.1);}
+.hero-bg-lines{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(14,165,160,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,160,0.04) 1px,transparent 1px);background-size:60px 60px;}
+.hero-glow{position:absolute;top:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(14,165,160,0.12) 0%,transparent 70%);pointer-events:none;}
+.hero-glow2{position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(201,168,76,0.08) 0%,transparent 70%);pointer-events:none;}
+
+.page-hero{min-height:35vh;background:var(--navy);display:flex;align-items:center;padding:120px 5% 80px;position:relative;overflow:hidden;margin-top:72px;}
+.page-hero h1{font-family:'Montserrat',sans-serif;font-size:clamp(36px,5vw,56px);font-weight:700;line-height:1.1;color:white;letter-spacing:-0.5px;margin-bottom:16px;}
+.page-hero p{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;font-weight:300;max-width:580px;}
+.page-hero-inner{position:relative;z-index:1;}
+
+.contact-section{background:var(--off-white);padding:80px 5%;}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start;max-width:1200px;margin:0 auto;}
+.contact-info h2{margin-bottom:20px;}
+.contact-items{margin-top:40px;display:flex;flex-direction:column;gap:20px;}
+.contact-item{display:flex;gap:16px;}
+.contact-item-icon{font-size:24px;min-width:32px;text-align:center;}
+.contact-item-label{font-size:12px;color:var(--text-muted);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;}
+.contact-item-value{font-size:14px;color:var(--text);font-weight:500;margin-top:4px;}
+.contact-form{background:linear-gradient(135deg,var(--off-white),white);border:1px solid var(--light-border);border-radius:16px;padding:40px;}
+.form-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:28px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{margin-bottom:20px;}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:0.3px;}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 16px;border-radius:8px;border:1px solid var(--light-border);font-family:'Montserrat',sans-serif;font-size:14px;color:var(--text);transition:all 0.2s;background:white;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,165,160,0.1);}
+.form-input.erro,.form-select.erro,.form-textarea.erro{border-color:#e53e3e;box-shadow:0 0 0 3px rgba(229,62,62,0.1);}
+.form-field-erro{display:none;font-size:12px;color:#e53e3e;margin-top:5px;font-weight:500;}
+.form-field-erro.visivel{display:block;}
+.form-textarea{resize:vertical;min-height:120px;}
+.form-feedback-global{display:none;padding:14px 16px;border-radius:8px;font-size:13px;font-weight:500;line-height:1.5;margin-top:16px;}
+.form-feedback-global.sucesso{display:block;background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;}
+.form-feedback-global.erro{display:block;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;}
+.captcha-container{margin-top:15px;}
+
+@media(max-width:768px){
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .contact-form{padding:28px 20px;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/351910680078?text=Ol%C3%A1%20Andr%C3%A9%2C%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20seus%20servi%C3%A7os." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar via WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-svg"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g><path d="M 80 50 A 40 40 0 1 0 80 150" fill="none" stroke="#0EA5A0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M 76 57 A 36 36 0 1 0 76 143" fill="none" stroke="#14C4BE" stroke-width="4" opacity="0.6" stroke-linecap="round"/></g>
+        <g><path d="M 120 50 A 40 40 0 1 0 120 150" fill="none" stroke="#14C4BE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M 116 57 A 36 36 0 1 0 116 143" fill="none" stroke="#0EA5A0" stroke-width="4" opacity="0.6" stroke-linecap="round"/></g>
+      </svg></div>
+    <span class="nav-logo-text">ACContas</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/servicos.html">Serviços</a></li>
+    <li><a href="/sobre.html">Sobre</a></li>
+    <li><a href="/agendar.html">Agendar</a></li>
+  </ul>
+  <a href="/contacto.html" class="nav-cta">Contacto →</a>
+  <button class="nav-mobile-btn" id="navMobileBtn" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-menu" id="navMobileMenu" role="navigation" aria-label="Menu mobile">
+  <a href="/servicos.html">Serviços</a>
+  <a href="/sobre.html">Sobre</a>
+  <a href="/agendar.html">Agendar</a>
+  <a href="/contacto.html" class="nav-mobile-cta">Pedir Orçamento Gratuito →</a>
+</div>
+
+<section class="page-hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="page-hero-inner">
+    <span class="section-label" style="color:var(--teal-light);margin-bottom:12px;display:block;">Fale connosco</span>
+    <h1>Pedir Orçamento Gratuito</h1>
+    <p>Resposta garantida em menos de 24 horas úteis. Sem compromisso.</p>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title">Vamos <em>falar</em><br/>sobre o seu caso</h2>
+      <p class="section-sub">Envie-me uma mensagem e respondo em menos de 24 horas úteis. O primeiro contacto é gratuito e sem compromisso.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div><div class="contact-item-label">Localização</div><div class="contact-item-value">Aveiro, Região Centro · Serviço remoto nacional</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📧</div>
+          <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:andreccontas@gmail.com?subject=Pedido%20de%20Informa%C3%A7%C3%A3o%20%E2%80%93%20ACContas" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='inherit'">andreccontas@gmail.com</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div><div class="contact-item-label">WhatsApp <span style="color:#D32F2F;font-weight:700;">*</span></div><div class="contact-item-value"><a href="https://wa.me/351910680078?text=Ol%C3%A1%20Andr%C3%A9%2C%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20seus%20servi%C3%A7os." target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#25D366'" onmouseout="this.style.color='inherit'">+351 910 680 078</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🔗</div>
+          <div><div class="contact-item-label">LinkedIn</div><div class="contact-item-value"><a href="https://www.linkedin.com/in/acchouco" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#0A66C2'" onmouseout="this.style.color='inherit'">linkedin.com/in/acchouco</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📅</div>
+          <div><div class="contact-item-label">Prefere agendar uma reunião?</div><div class="contact-item-value"><a href="/agendar.html" style="color:var(--teal);text-decoration:none;font-weight:700;">Ver disponibilidade →</a></div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div><div class="contact-item-label">Resposta</div><div class="contact-item-value">Habitualmente em menos de 24 horas úteis</div></div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--gray);margin-top:12px;">* Chamada para rede móvel nacional.</p>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Pedir Orçamento Gratuito</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="nome">Nome</label>
+          <input type="text" id="nome" class="form-input" placeholder="O seu nome"/>
+          <span class="form-field-erro" id="erro-nome"></span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" class="form-input" placeholder="email@exemplo.pt"/>
+          <span class="form-field-erro" id="erro-email"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="telefone">Telemóvel</label>
+        <input type="tel" id="telefone" class="form-input" placeholder="9 dígitos (ex: 912345678)"/>
+        <span class="form-field-erro" id="erro-telefone"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="servico">Serviço pretendido</label>
+        <select id="servico" class="form-select" aria-label="Escolhe o serviço pretendido">
+          <option value="">Selecione um serviço</option>
+          <option>IRS – Declaração Anual</option>
+          <option>Trabalhador Independente (IVA / SS)</option>
+          <option>Contabilidade Organizada para Empresa</option>
+          <option>Consultoria Fiscal</option>
+          <option>Constituição de Empresa</option>
+          <option>Outro</option>
+        </select>
+        <span class="form-field-erro" id="erro-servico"></span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="mensagem">Mensagem</label>
+        <textarea id="mensagem" class="form-textarea" placeholder="Descreva brevemente a sua situação..."></textarea>
+        <span class="form-field-erro" id="erro-mensagem"></span>
+      </div>
+      <div class="form-group" style="display:flex;align-items:flex-start;gap:8px;margin-top:15px;">
+        <input type="checkbox" id="rgpd_consent" required style="margin-top:3px;" />
+        <label for="rgpd_consent" style="font-size:12px;color:var(--text-muted);line-height:1.4;">
+          Aceito que os meus dados sejam tratados pela ACContas para efeitos de resposta a este pedido de orçamento, de acordo com a <a href="/politica-privacidade.html" style="color:var(--teal);text-decoration:none;font-weight:500;">Política de Privacidade</a>.
+        </label>
+      </div>
+      <span class="form-field-erro" id="erro-rgpd" style="display:none;margin-top:4px;"></span>
+      <input type="text" id="website" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+      <div class="captcha-container">
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADaElhFFhQnFE_l2" data-theme="light" data-language="pt-pt" id="turnstileWidget"></div>
+        <span class="form-field-erro" id="erro-captcha"></span>
+      </div>
+      <div class="form-feedback-global" id="form-feedback-global"></div>
+      <button id="submitBtn" class="btn-primary" style="width:100%;justify-content:center;text-align:center;margin-top:15px;" type="button" onclick="handleFormSubmit()">Enviar Pedido →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="/" class="nav-logo" style="margin-bottom:0">
+        <div class="nav-logo-svg"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g><path d="M 80 50 A 40 40 0 1 0 80 150" fill="none" stroke="#0EA5A0" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M 76 57 A 36 36 0 1 0 76 143" fill="none" stroke="#14C4BE" stroke-width="4" opacity="0.6" stroke-linecap="round"/></g>
+        <g><path d="M 120 50 A 40 40 0 1 0 120 150" fill="none" stroke="#14C4BE" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M 116 57 A 36 36 0 1 0 116 143" fill="none" stroke="#0EA5A0" stroke-width="4" opacity="0.6" stroke-linecap="round"/></g>
+      </svg></div>
+        <span class="nav-logo-text">ACContas</span>
+      </a>
+      <p class="footer-brand-text">Contabilidade e fiscalidade com foco na otimização. Contabilista Certificado, Mestre em Fiscalidade, localizado em Aveiro.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Serviços</div>
+      <ul class="footer-links">
+        <li><a href="/servicos.html">IRS</a></li>
+        <li><a href="/servicos.html">Trabalhador Independente</a></li>
+        <li><a href="/servicos.html">Contabilidade Organizada</a></li>
+        <li><a href="/servicos.html">Consultoria Fiscal</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Informação</div>
+      <ul class="footer-links">
+        <li><a href="/sobre.html">Sobre</a></li>
+        <li><a href="/sobre.html#avaliacoes">Avaliações</a></li>
+        <li><a href="/sobre.html#faq">FAQ</a></li>
+        <li><a href="https://www.zaask.pt/user/ACContas" target="_blank">Zaask</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contacto</div>
+      <ul class="footer-links">
+        <li><a href="/contacto.html">Pedir Orçamento</a></li>
+        <li><a href="/agendar.html">Agendar Reunião</a></li>
+        <li><a href="#">Aveiro · Portugal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 ACContas. Todos os direitos reservados.</div>
+    <div class="footer-occ">📜 Inscrito na Ordem dos Contabilistas Certificados</div>
+  </div>
+  <div class="footer-links-legais">
+    <a href="/aviso-legal.html">Aviso Legal</a> | 
+    <a href="/politica-privacidade.html">Política de Privacidade</a>
+  </div>
+  <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;color:rgba(255,255,255,0.4);text-align:center;">
+    * Chamada para rede móvel nacional. Consulte as tarifas do seu operador móvel.
+  </div>
+</footer>
+<script>
+const navBtn=document.getElementById('navMobileBtn');
+const navMenu=document.getElementById('navMobileMenu');
+if(navBtn){
+  navBtn.addEventListener('click',()=>{
+    const isOpen=navMenu.classList.toggle('open');
+    navBtn.classList.toggle('open',isOpen);
+    navBtn.setAttribute('aria-expanded',isOpen);
+    document.body.style.overflow=isOpen?'hidden':'';
+  });
+  document.querySelectorAll('.nav-mobile-menu a').forEach(link=>{
+    link.addEventListener('click',()=>{
+      navMenu.classList.remove('open');
+      navBtn.classList.remove('open');
+      navBtn.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+    });
+  });
+}
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);observer.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+<script>
+function validarEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+function validarTelefone(tel) { return /^\d{9}$/.test(tel.replace(/\s/g, '')); }
+function verificarRateLimit() {
+  const agora = Date.now();
+  const submissoes = JSON.parse(localStorage.getItem('acc_submissions') || '[]');
+  const recentes = submissoes.filter(t => agora - t < 3_600_000);
+  if (recentes.length >= 3) return false;
+  recentes.push(agora);
+  localStorage.setItem('acc_submissions', JSON.stringify(recentes));
+  return true;
+}
+function mostrarErroCampo(id, mensagem) {
+  const campo = document.getElementById(id);
+  const erroEl = document.getElementById('erro-' + id);
+  if (campo) campo.classList.add('erro');
+  if (erroEl) { erroEl.textContent = mensagem; erroEl.classList.add('visivel'); }
+}
+function limparErroCampo(id) {
+  const campo = document.getElementById(id);
+  const erroEl = document.getElementById('erro-' + id);
+  if (campo) campo.classList.remove('erro');
+  if (erroEl) { erroEl.textContent = ''; erroEl.classList.remove('visivel'); }
+}
+function limparTodosErros() {
+  ['nome','email','telefone','servico','mensagem','rgpd','captcha'].forEach(limparErroCampo);
+  const fb = document.getElementById('form-feedback-global');
+  fb.className = 'form-feedback-global';
+  fb.textContent = '';
+}
+function mostrarFeedbackGlobal(mensagem, tipo) {
+  const fb = document.getElementById('form-feedback-global');
+  fb.textContent = mensagem;
+  fb.className = 'form-feedback-global ' + tipo;
+  fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+['nome','email','telefone','servico','mensagem'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => limparErroCampo(id));
+});
+document.getElementById('rgpd_consent').addEventListener('change', () => limparErroCampo('rgpd'));
+async function handleFormSubmit() {
+  limparTodosErros();
+  if (document.getElementById('website').value.trim() !== '') return;
+  const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value || '';
+  if (!turnstileToken) { mostrarErroCampo('captcha', 'Por favor complete a verificação de segurança.'); return; }
+  if (!verificarRateLimit()) { mostrarFeedbackGlobal('⏳ Limite de pedidos atingido. Tente em 1 hora ou contacte-nos por WhatsApp: +351 910 680 078', 'erro'); return; }
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const telefone = document.getElementById('telefone').value.trim();
+  const servico = document.getElementById('servico').value.trim();
+  const mensagem = document.getElementById('mensagem').value.trim();
+  const rgpd = document.getElementById('rgpd_consent').checked;
+  let temErros = false;
+  if (nome.length < 3) { mostrarErroCampo('nome', 'Mínimo 3 caracteres.'); temErros = true; }
+  if (!validarEmail(email)) { mostrarErroCampo('email', 'Email inválido.'); temErros = true; }
+  if (!validarTelefone(telefone)) { mostrarErroCampo('telefone', 'Deve ter 9 dígitos.'); temErros = true; }
+  if (servico === '') { mostrarErroCampo('servico', 'Selecione um serviço.'); temErros = true; }
+  if (mensagem.length < 10) { mostrarErroCampo('mensagem', 'Mínimo 10 caracteres.'); temErros = true; }
+  if (!rgpd) { mostrarErroCampo('rgpd', 'Deve aceitar a Política de Privacidade.'); temErros = true; }
+  if (temErros) return;
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'A enviar…';
+  try {
+    const res = await fetch('/.netlify/functions/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, email, telefone, servico, mensagem, turnstileToken, _honeypot: '' }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      mostrarFeedbackGlobal('✅ Pedido enviado! Receberá uma confirmação por email em breve.', 'sucesso');
+      ['nome','email','telefone','mensagem'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('servico').value = '';
+      document.getElementById('rgpd_consent').checked = false;
+      if (window.turnstile) window.turnstile.reset('#turnstileWidget');
+    } else {
+      mostrarFeedbackGlobal('❌ ' + (data.error || 'Erro ao enviar. Tente novamente.'), 'erro');
+      if (window.turnstile) window.turnstile.reset('#turnstileWidget');
+    }
+  } catch {
+    mostrarFeedbackGlobal('❌ Erro de ligação. Verifique a internet ou contacte-nos por WhatsApp.', 'erro');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enviar Pedido →';
+  }
+}
+</script>
+</body>
+</html>
