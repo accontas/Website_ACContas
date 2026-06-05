@@ -27,11 +27,13 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
 
     # Content Security Policy
-    # - script-src: GA, Turnstile, Calendly e scripts inline
-    # - style-src: Google Fonts, Calendly e estilos inline
+    # - script-src: GA, Turnstile, Calendly + hashes SHA-256 dos scripts inline (sem unsafe-inline)
+    # - style-src: Google Fonts, Calendly + hashes SHA-256 dos estilos inline (sem unsafe-inline)
     # - frame-src: iframe do Calendly e Turnstile
     # - connect-src: GA, Cloudflare e Calendly API
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.zaask.pt https://assets.calendly.com; connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com https://calendly.com; frame-src https://calendly.com https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    # NOTA: Os hashes cobrem todos os blocos <script> e <style> inline do site.
+    # Se alterar scripts/estilos inline, regenerar hashes com: python3 scripts/gen-csp-hashes.py
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-f3tTRc6vAjLgyuXcU9p0wdR87ZSr+NUYYaj6aeOW9bQ=' 'sha256-M4Ma60vlpyqhrVF4gK5VEAurV0XzZC/tlgiKEn8iPtE=' 'sha256-TxDywjS3ho9bjj82Y+Ke3DnKdwmgZjmhdpJ814cBETo=' 'sha256-LieSPzWkWLc0bzExDd+/bOR+EwiITdxMeQ4ilnxhMiQ=' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com https://assets.calendly.com; style-src 'self' 'sha256-4oBQZba1tj/qclJgFHfU8l+OhYFH55McXMfxsHNNUTM=' 'sha256-HJa+H6zNDOlhkfV65mphx5NdUblmBxDucgPZxYwacuQ=' 'sha256-MrTPQUg1sli5thQ//Lk2nnFjnPsZgWfKlbvliQNVbkU=' 'sha256-ssg2D2PzgpVV6z86GH2Mi2KHtsq2e+wHZtH/Dn0UECc=' 'sha256-sxz+pPLT6pSMFamZAwJkvA+hHAG6yLoGnVmQ90H0E80=' 'sha256-vnIxo6T2Jt5PC0Mx9U+80e6O7unI14pcJQUYxhzh2hg=' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.zaask.pt https://assets.calendly.com; connect-src 'self' https://www.google-analytics.com https://challenges.cloudflare.com https://calendly.com; frame-src https://calendly.com https://challenges.cloudflare.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
 
     # Proteção XSS no browser (browsers mais antigos)
     X-XSS-Protection = "1; mode=block"

@@ -1,9 +1,249 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+<!-- ── Preconnect para recursos externos (performance) ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://challenges.cloudflare.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+
+<!-- ── Schema.org JSON-LD: LocalBusiness + Person + FAQPage ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://accontas.pt/#business",
+      "name": "ACContas",
+      "legalName": "ACContas – Serviços de Contabilidade e Fiscalidade",
+      "url": "https://accontas.pt",
+      "logo": "https://accontas.pt/og-image.png",
+      "image": "https://accontas.pt/og-image.png",
+      "description": "Contabilista Certificado e Mestre em Fiscalidade em Aveiro. Serviços de IRS, Trabalhadores Independentes, Contabilidade Organizada para Empresas e Consultoria Fiscal. Serviço remoto em todo Portugal.",
+      "telephone": "+351",
+      "email": "andreccontas@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Aveiro",
+        "addressRegion": "Centro",
+        "addressCountry": "PT"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.6405,
+        "longitude": -8.6538
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "Portugal"
+      },
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Transferência bancária, MB Way",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "sameAs": [
+        "https://www.zaask.pt/user/ACContas"
+      ],
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Contabilista Certificado",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Ordem dos Contabilistas Certificados",
+          "url": "https://www.occ.pt"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "ratingCount": "50",
+        "reviewCount": "50"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://accontas.pt/#person",
+      "name": "André Chouco",
+      "givenName": "André",
+      "familyName": "Chouco",
+      "jobTitle": "Contabilista Certificado",
+      "description": "Contabilista Certificado pela Ordem dos Contabilistas Certificados (cédula n.º 95469) e Mestre em Ciência Fiscal. Formador certificado em contabilidade. Mais de 5 anos de experiência em gabinetes e grandes grupos empresariais.",
+      "url": "https://accontas.pt/sobre.html",
+      "image": "https://accontas.pt/og-image.png",
+      "worksFor": {
+        "@id": "https://accontas.pt/#business"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Mestrado em Ciência Fiscal"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Contabilista Certificado OCC n.º 95469"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Mestre em Ciência Fiscal"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Formador Certificado em Contabilidade"
+        }
+      ],
+      "award": "Profissional de Excelência Zaask 2025",
+      "sameAs": [
+        "https://www.zaask.pt/user/ACContas"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://accontas.pt/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qual é o tempo de resposta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Garantimos resposta em menos de 24 horas úteis para todos os pedidos. A maioria das respostas são dadas em poucas horas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso ter serviço remoto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim! Trabalho 100% remoto e atendo clientes em todas as regiões de Portugal via email, telefone, SMS ou videochamada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual é o custo dos serviços?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Os preços variam conforme o serviço e complexidade. Oferecemos uma primeira consulta gratuita para discutir o seu orçamento personalizado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Preciso de documentação específica?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende do serviço. Para IRS, precisamos de comprovativos de rendimentos e despesas. Para empresas, da documentação contabilística. Orientarei sobre tudo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como garantem a conformidade?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sou Contabilista Certificado na Ordem dos Contabilistas Certificados com o n.º 95469. Todos os trabalhos seguem normas legais e fiscais rigorosas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Oferecem consultoria fiscal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim, oferecemos consultoria fiscal. O preço varia conforme a especificidade do caso. Agende um contacto para obter mais informações."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como funciona o acompanhamento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para clientes com contrato anual, faço acompanhamento proativo: alertas de prazos, notificações de alterações legais e revisão periódica da situação fiscal."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://accontas.pt/#website",
+      "url": "https://accontas.pt",
+      "name": "ACContas",
+      "description": "Contabilidade e fiscalidade com foco na otimização. Contabilista Certificado, Mestre em Fiscalidade, Aveiro.",
+      "publisher": {
+        "@id": "https://accontas.pt/#business"
+      },
+      "inLanguage": "pt-PT",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://accontas.pt/contacto.html?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://accontas.pt/#services",
+      "name": "Serviços de Contabilidade ACContas",
+      "provider": {
+        "@id": "https://accontas.pt/#business"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Serviços de Contabilidade e Fiscalidade",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Declaração IRS",
+              "description": "Entrega da declaração anual de IRS para pessoas singulares, com otimização fiscal e maximização do reembolso.",
+              "url": "https://accontas.pt/servicos.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Contabilidade para Trabalhadores Independentes",
+              "description": "Gestão de recibos verdes, IVA, Segurança Social e obrigações declarativas para trabalhadores independentes.",
+              "url": "https://accontas.pt/servicos.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Contabilidade Organizada para Empresas",
+              "description": "Contabilidade organizada completa para empresas: IRC, IVA, Segurança Social e relatórios de gestão.",
+              "url": "https://accontas.pt/servicos.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Consultoria Fiscal",
+              "description": "Aconselhamento fiscal estratégico para otimização legal da carga tributária de particulares e empresas.",
+              "url": "https://accontas.pt/servicos.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Constituição de Empresa",
+              "description": "Apoio completo na criação e registo de empresas, escolha de forma jurídica e enquadramento fiscal.",
+              "url": "https://accontas.pt/servicos.html"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+</script>
+
 <!-- ======================================================== -->
 <!-- SISTEMA DE COOKIES COMPATÍVEL COM RGPD + GOOGLE ANALYTICS -->
 <!-- ======================================================== -->
