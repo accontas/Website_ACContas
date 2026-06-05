@@ -12,12 +12,33 @@
 // ═══════════════════════════════════════════════════════════════
 
 // Armazenamento em memória para rate limiting por IP
-// (reinicia a cada deploy — aceitável para o volume de um site pessoal)
+// LIMITAÇÃO: reinicia a cada deploy/cold start das Netlify Functions.
+// Para rate limiting persistente em produção, migrar para Upstash Redis:
+//   1. Criar conta em https://upstash.com (free tier: 10k req/dia)
+//   2. npm install @upstash/ratelimit @upstash/redis
+//   3. Substituir a lógica abaixo pelo SDK Upstash com sliding window
+// Para o volume atual do site (contacto), a solução em memória é suficiente.
 const ipRateLimits = new Map();
 const RATE_LIMIT_MAX      = 5;       // máx pedidos por janela
 const RATE_LIMIT_WINDOW   = 3600000; // 1 hora em ms
+const CLEANUP_INTERVAL    = 3600000; // limpar entradas expiradas a cada hora
+
+// Limpeza periódica para evitar crescimento ilimitado do Map em memória
+let lastCleanup = Date.now();
+
+function cleanupExpiredEntries() {
+  const now = Date.now();
+  if (now - lastCleanup < CLEANUP_INTERVAL) return;
+  for (const [ip, record] of ipRateLimits.entries()) {
+    if (now - record.firstRequest > RATE_LIMIT_WINDOW) {
+      ipRateLimits.delete(ip);
+    }
+  }
+  lastCleanup = now;
+}
 
 function checkIpRateLimit(ip) {
+  cleanupExpiredEntries();
   const now    = Date.now();
   const record = ipRateLimits.get(ip) || { count: 0, firstRequest: now };
 
