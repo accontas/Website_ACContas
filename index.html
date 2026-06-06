@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ACContas – Contabilidade &amp; Fiscalidade | Aveiro</title>
+<meta name="description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. IRS, Trabalhadores Independentes, Contabilidade Organizada e Consultoria Fiscal. Serviço remoto em todo Portugal. Avaliação 5.0★ no Zaask."/>
+<meta name="keywords" content="contabilista Aveiro, IRS, trabalhador independente, contabilidade organizada, consultoria fiscal, OCC, fiscalidade Portugal"/>
+<meta name="author" content="ACContas"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://accontas.pt/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://accontas.pt/"/>
+<meta property="og:title" content="ACContas – Contabilidade &amp; Fiscalidade | Aveiro"/>
+<meta property="og:description" content="Contabilista Certificado e Mestre em Fiscalidade. IRS, Trabalhadores Independentes, Contabilidade Organizada. Avaliação 5.0★ · Profissional de Excelência Zaask 2025."/>
+<meta property="og:image" content="https://accontas.pt/og-image.png"/>
+<meta property="og:locale" content="pt_PT"/>
+<meta property="og:site_name" content="ACContas"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="ACContas – Contabilidade &amp; Fiscalidade | Aveiro"/>
+<meta name="twitter:description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. IRS, TI, Contabilidade Organizada. 5.0★ Zaask."/>
+<meta name="twitter:image" content="https://accontas.pt/og-image.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+
 <!-- ── Preconnect para recursos externos (performance) ── -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -244,171 +269,8 @@
 }
 </script>
 
-<!-- ======================================================== -->
-<!-- SISTEMA DE COOKIES COMPATÍVEL COM RGPD + GOOGLE ANALYTICS -->
-<!-- ======================================================== -->
-
-<!-- 1. Estilos Visuais do Banner (CSS) -->
-<style>
-  .cookie-banner {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    background: #1f2937;
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    display: none; /* Escondido por defeito, o JavaScript decide se mostra */
-    z-index: 9999;
-    font-family: sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .cookie-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  @media (min-width: 768px) {
-    .cookie-container {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-  .cookie-text {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .cookie-text a {
-    color: #3b82f6;
-    text-decoration: underline;
-  }
-  .cookie-buttons {
-    display: flex;
-    gap: 10px;
-    white-space: nowrap;
-  }
-  .btn-cookie {
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: none;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .btn-accept { background: #10b981; color: white; }
-  .btn-accept:hover { background: #059669; }
-  .btn-reject { background: #4b5563; color: white; }
-  .btn-reject:hover { background: #374151; }
-</style>
-
-<!-- 2. Lógica de Bloqueio e Ativação (JavaScript com o teu ID) -->
-<script>
-  // O teu ID do Google Analytics já configurado
-  const GA_MEASUREMENT_ID = 'G-JG7XMQJR13';
-
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  
-  // Passo 1: Bloquear o rastreio por defeito antes da escolha do utilizador
-  if (localStorage.getItem('cookieConsent') === null) {
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied'
-    });
-  } else if (localStorage.getItem('cookieConsent') === 'accepted') {
-    // Se já tinha aceitado no passado, dá autorização e carrega o Analytics
-    gtag('consent', 'default', {
-      'analytics_storage': 'granted'
-    });
-    carregarGoogleAnalytics();
-  }
-
-  // Função que injeta o script do Google Analytics de forma segura após o consentimento
-  function carregarGoogleAnalytics() {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script);
-
-    script.onload = function() {
-      gtag('js', new Date());
-      gtag('config', GA_MEASUREMENT_ID);
-    };
-  }
-
-  // Controlar a exibição do banner na página
-  window.addEventListener('DOMContentLoaded', () => {
-    const banner = document.getElementById('cookieBanner');
-    const consent = localStorage.getItem('cookieConsent');
-
-    // Se é a primeira visita, mostra o banner
-    if (!consent) {
-      banner.style.display = 'block';
-    }
-
-    // Se clicar em Aceitar
-    document.getElementById('btnAcceptCookies').addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'accepted');
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted'
-      });
-      carregarGoogleAnalytics();
-      banner.style.display = 'none';
-    });
-
-    // Se clicar em Recusar
-    document.getElementById('btnRejectCookies').addEventListener('click', () => {
-      localStorage.setItem('cookieConsent', 'rejected');
-      banner.style.display = 'none';
-    });
-  });
-</script>
-
-<!-- 3. O Banner Visual (Estrutura HTML) -->
-<div id="cookieBanner" class="cookie-banner">
-  <div class="cookie-container">
-    <div class="cookie-text">
-      Utilizamos cookies para melhorar a sua experiência de navegação e analisar o tráfego do site. Pode consultar a nossa <a href="/politica-privacidade.html">Política de Privacidade</a>.
-    </div>
-    <div class="cookie-buttons">
-      <button id="btnRejectCookies" class="btn-cookie btn-reject">Recusar</button>
-      <button id="btnAcceptCookies" class="btn-cookie btn-accept">Aceitar</button>
-    </div>
-  </div>
-</div>
-<!-- ======================================================== -->
 
 
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ACContas – Contabilidade &amp; Fiscalidade | Aveiro</title>
-<meta name="description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. IRS, Trabalhadores Independentes, Contabilidade Organizada e Consultoria Fiscal. Serviço remoto em todo Portugal. Avaliação 5.0★ no Zaask."/>
-<meta name="keywords" content="contabilista Aveiro, IRS, trabalhador independente, contabilidade organizada, consultoria fiscal, OCC, fiscalidade Portugal"/>
-<meta name="author" content="ACContas"/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://accontas.pt/"/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://accontas.pt/"/>
-<meta property="og:title" content="ACContas – Contabilidade &amp; Fiscalidade | Aveiro"/>
-<meta property="og:description" content="Contabilista Certificado e Mestre em Fiscalidade. IRS, Trabalhadores Independentes, Contabilidade Organizada. Avaliação 5.0★ · Profissional de Excelência Zaask 2025."/>
-<meta property="og:image" content="https://accontas.pt/og-image.png"/>
-<meta property="og:locale" content="pt_PT"/>
-<meta property="og:site_name" content="ACContas"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="ACContas – Contabilidade &amp; Fiscalidade | Aveiro"/>
-<meta name="twitter:description" content="Contabilista Certificado e Mestre em Fiscalidade em Aveiro. IRS, TI, Contabilidade Organizada. 5.0★ Zaask."/>
-<meta name="twitter:image" content="https://accontas.pt/og-image.png"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-<link rel="manifest" href="/manifest.json"/>
 <style>
 :root {
   --navy:#1B3A4B;--navy2:#24495A;--navy3:#2D5869;
